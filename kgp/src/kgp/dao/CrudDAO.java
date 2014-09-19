@@ -6,7 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class CrudDAO<T> {
-	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("KGP");
+	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("EIW");
 	
 	public EntityManager getEntityManager() {
 		return emf.createEntityManager();

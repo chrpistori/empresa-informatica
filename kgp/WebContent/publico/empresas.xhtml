@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		Folha de Pagamento - Lista de Empresas
+	</ui:define>
+
+<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="frmEmpresas">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<p:outputLabel value="Empresas" styleClass="titulo" />
+					<br />
+					<br />
+					<p:commandButton value="Novo Empresa"
+						action="empresa?faces-redirect=true"
+						style="margin-bottom: 20px;" />
+					<p:dataTable id="dt_empresa" var="empresa" resizableColumns="true"
+						emptyMessage="Não foram encontrados resultados."
+						value="#{empresaConsultaController.lista}" paginator="true" 
+						paginatorPosition="bottom" rows="10"
+						selection="#{empresaConsultaController.empresa}"
+						selectionMode="single" rowKey="#{empresa.id}">
+						<f:facet name="header">
+							<h:outputText value="Empresas Cadastrados" />
+						</f:facet>
+						<p:column sortBy="#{empresa.nome}" headerText="Nome">
+							<h:outputText value="#{empresa.nome}" />
+						</p:column>
+						<p:column styleClass="dataTable_options">
+							<p:commandLink update=":frmEditar:pgEditar"
+								actionListener="#{empresaEditController.preparar(empresa.id)}"
+								oncomplete="dlgEditar.show();" title="Editar">
+								<p:graphicImage url="../resources/imagens/editar2.png" />
+							</p:commandLink>
+						</p:column>
+						<p:column styleClass="dataTable_options">
+							<p:commandLink update=":frmExcluir"
+								actionListener="#{empresaEditController.preparar(empresa.id)}"
+								ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
+								title="Excluir">
+								<p:graphicImage url="../resources/imagens/excluir2.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+
+				<h:form id="frmEditar">
+					<p:dialog header="Editar Empresa" widgetVar="dlgEditar"
+						resizable="false" id="dlgEditar" modal="true">
+						<p:growl id="growlEditar" sticky="false" />
+						<h:panelGrid id="pgEditar" columns="3" cellpadding="4"
+							style="margin:0 auto;">
+							<h:inputHidden value="#{empresaEditController.empresa.id}"
+								id="hiddenid" />
+							<p:outputLabel value="Nome:" />
+							<p:inputText id="nome" label="Nome"
+								value="#{empresaEditController.empresa.nome}" size="30"
+								maxlength="30" required="true" requiredMessage="Obrigatório" />
+							<p:message for="nome" display="text" />
+						</h:panelGrid>
+						<p:separator />
+						<h:panelGrid columns="2"
+							style="margin-left: 50px; margin-top: 20px; width: 90%">
+							<p:commandButton value="&nbsp;Atualizar"
+								update=":frmEmpresas:dt_empresa, growlEditar, dlgEditar"
+								actionListener="#{empresaEditController.atualizar()}"
+								ajax="true" oncomplete="dlgEditar.hide()" />
+							<p:commandButton value="&nbsp;Cancelar"
+								onclick="dlgEditar.hide()" />
+						</h:panelGrid>
+					</p:dialog>
+				</h:form>
+
+				<h:form id="frmExcluir">
+					<p:growl id="growlExcluir" sticky="true" />
+					<p:confirmDialog id="dlgExcluir"
+						message="Deseja excluir este empresa?" header="Excluir Funcionário"
+						severity="alert" widgetVar="dlgExcluir">
+						<h:inputHidden value="#{empresaEditController.empresa.id}"
+							id="hiddenid" />
+						<p:commandButton value="Excluir"
+							update=":frmEmpresas:dt_empresa, growlExcluir, dlgExcluir"
+							actionListener="#{empresaEditController.excluir()}"
+							oncomplete="dlgExcluir.hide()" />
+						<p:commandButton value="&nbsp;Cancelar"
+							update=":frmEmpresas:dt_empresa" oncomplete="dlgExcluir.hide()" />
+
+					</p:confirmDialog>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

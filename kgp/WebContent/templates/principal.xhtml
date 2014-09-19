@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title><ui:insert name="titulo">KGP - Gerenciamento de Projetos</ui:insert></title>
+	<title><ui:insert name="titulo">Folha de Pagamento</ui:insert></title>
 	<h:outputStylesheet library="css" name="default.css" />
 	<style type="text/css">
 <!--
@@ -19,115 +19,8 @@
 </h:head>
 <h:body>
 	<div class="container">
-		<div id="logo">
-			<a href="http://localhost:8080/KGP/"> <img
-				src="../resources/imagens/logoKGP_512.png"
-				style="width: 280px; margin-left: 20px;"
-				alt="KGP - Kanban Gerenciamento de Projetos" />
-			</a>
-		</div>
-		<div>
-			<div id="user">
-				<h:form>
-					<p:growl id="growlEditar" sticky="false" time="3000"
-						globalOnly="true" />
-					<h:panelGrid style="float: right;">
-						<p:commandButton value="Login"
-							action="/publico/login?faces-redirect=true"
-							rendered="#{empty loginController.usuarioLogado}"
-							style="margin:0px 5px" />
-						<p:commandButton value="Sair" action="#{loginController.logout()}"
-							rendered="#{not empty loginController.usuarioLogado}"
-							style="margin:0px 5px" />
-					</h:panelGrid>
-
-					<p:commandLink style="float: right; margin:15px 0px 0px 10px;"
-						rendered="#{not empty loginController.usuarioLogado}"
-						oncomplete="dlgEditarUsuario.show();" title="Editar">
-						<h:graphicImage value="../resources/imagens/gear.png" width="22"
-							style="margin-right: 20px; margin-bottom: 5px;" />
-					</p:commandLink>
-
-					<p:outputLabel
-						style="color: white; float: right; margin:15px 15px 0px 5px; font-weight: bold;"
-						rendered="#{not empty loginController.usuarioLogado}"
-						value="#{loginController.usuarioLogado.nome}" />
-
-					<p:outputLabel
-						style="color: white; float: right; margin:15px 0px 0px 0px;"
-						rendered="#{not empty loginController.usuarioLogado}"
-						value="Seja bem-vindo, " />
-
-
-				</h:form>
-
-				<h:form id="frmEditarUsuario">
-					<p:dialog header="Editar Usuário" widgetVar="dlgEditarUsuario"
-						height="280" resizable="false" id="dlgEditarUsuario" modal="true">
-						<p:growl id="growlEditar" sticky="false" time="3000"
-							globalOnly="true" />
-						<h:inputHidden value="#{loginController.usuarioLogado.id}" />
-						<h:panelGrid id="pgEditar" cellpadding="4" style="margin:0 auto;">
-							<h:panelGrid columns="3" style="margin:10px;">
-								<p:outputLabel value="Nome:" />
-								<p:inputText id="nome" label="Nome"
-									value="#{loginController.usuarioLogado.nome}" maxlength="30"
-									required="true" requiredMessage="Obrigatório" />
-								<p:message for="nome" display="text" />
-
-								<p:outputLabel value="E-mail:" />
-								<p:inputText id="email" label="E-mail"
-									value="#{loginController.usuarioLogado.email}" size="30"
-									maxlength="30" required="true" requiredMessage="Obrigatório"
-									validatorMessage="Formato de e-mail inválido">
-									<f:validateRegex
-										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-								</p:inputText>
-								<p:message for="email" display="text" />
-
-								<p:outputLabel value="Telefone 1:" />
-								<p:inputMask mask="(99) 9999-9999"
-									value="#{loginController.usuarioLogado.telefone1}" size="30"
-									maxlength="15" />
-								<h:inputHidden />
-
-								<p:outputLabel value="Telefone 2:" />
-								<p:inputMask mask="(99) 9999-9999"
-									value="#{loginController.usuarioLogado.telefone2}" size="30"
-									maxlength="15" />
-								<h:inputHidden />
-
-								<p:outputLabel value="Usuário:" />
-								<p:inputText id="usuario" label="Usuario"
-									value="#{loginController.usuarioLogado.usuario}" size="30"
-									maxlength="30" required="true" requiredMessage="Obrigatório" />
-								<p:message for="usuario" display="text" />
-
-							</h:panelGrid>
-						</h:panelGrid>
-						<p:separator />
-						<h:panelGrid columns="2"
-							style="margin-left: 50px; margin-top: 20px; width: 90%">
-							<p:commandButton value="Atualizar"
-								update="growlEditar, dlgEditarUsuario"
-								actionListener="#{loginController.atualizar()}" ajax="true"
-								oncomplete="dlgEditarUsuario.hide()" />
-							<p:commandButton value="Cancelar"
-								onclick="dlgEditarUsuario.hide()" />
-						</h:panelGrid>
-					</p:dialog>
-				</h:form>
-
-			</div>
-		</div>
-		<div id="menu_sistema">
-			<ui:insert name="menu">
-				<ui:include src="/restrito/menu_sistema.xhtml" />
-			</ui:insert>
-		</div>
-
 		<div id="wrapper">
-			<ui:include src="/restrito/menu_interno.xhtml" />
+			<h:outputText value="Sitema Folha de Pagamento" styleClass="titulo" style="margin: 20px;"/>
 			<ui:insert name="corpo" />
 		</div>
 		<div id="rodape">

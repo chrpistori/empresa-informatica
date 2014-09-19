@@ -8,51 +8,21 @@
 
 <ui:composition template="/templates/principal.xhtml">
 
+	<ui:define name="titulo">
+		Folha de Pagamento - Index
+	</ui:define>
+
 	<ui:define name="corpo">
 		<div id="three-columns">
 			<div class="content">
-
-				<h:panelGroup rendered="#{empty loginController.usuarioLogado}">
-					<h:form >
-
-						<p:fieldset legend="Login"
-							style="width: 300px; margin: 30px auto;">
-							<p:messages id="messages" showDetail="false" autoUpdate="true"
-								closable="true" />
-							<h:panelGrid columns="2" style="margin: 0 auto;">
-								<p:outputLabel value="Usuário:" />
-								<p:inputText id="usuario"
-									value="#{loginController.usuario.usuario}" required="true"
-									requiredMessage="Insira o nome de usuário">
-								</p:inputText>
-
-								<p:outputLabel value="Senha:" />
-								<p:password id="senha" value="#{loginController.usuario.senha}"
-									required="true" requiredMessage="Insira a senha" />
-							</h:panelGrid>
-							<h:panelGrid columns="1" style=" margin:auto;">
-								<p:commandButton value="Entrar"
-									action="#{loginController.logado}" style="margin: 10px 90px;"
-									update="messages" />
-							</h:panelGrid>
-						</p:fieldset>
-					</h:form>
-
-					<h:form>
-						<h:panelGrid columns="1" style="width:340px; margin: 30px auto;">
-							<p:outputLabel
-								value="É novo por aqui? Cadastre-se e experimente nossa metodologia ágil para gerenciar seus projetos!" />
-
-							<p:commandButton value="Cadastre-se" style="margin: 10px 90px;"
-								action="/publico/cadastro?faces-redirect=true" />
-
-						</h:panelGrid>
-					</h:form>
-				</h:panelGroup>
-				
-				<h:panelGroup rendered="#{not empty loginController.usuarioLogado}">
-					<META HTTP-EQUIV="Refresh" CONTENT="0;URL=../restrito/principal.jsf"/>
-				</h:panelGroup>
+				<h:form>
+					<h:panelGrid columns="2" style="margin: 0 auto;">
+						<p:commandButton value="Funcionarios"
+							action="funcionarios?faces-redirect=true"/>
+						<p:commandButton value="Empresas"
+							action="empresas?faces-redirect=true"/>
+					</h:panelGrid>
+				</h:form>
 			</div>
 		</div>
 	</ui:define>

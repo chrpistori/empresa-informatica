@@ -2,18 +2,11 @@
 <persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="KGP">
-		<class>kgp.model.Burndown</class>
-		<class>kgp.model.Cfd</class>
-		<class>kgp.model.UsuarioProjeto</class>
-		<class>kgp.model.UsuarioTarefa</class>
-		<class>kgp.model.Iteracao</class>
-		<class>kgp.model.Projeto</class>
-		<class>kgp.model.Tarefa</class>
-		<class>kgp.model.Usuario</class>
-		<class>kgp.model.Cliente</class>
+	<persistence-unit name="EIW">
+		<class>kgp.model.Empresa</class>
+		<class>kgp.model.Funcionario</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/kgp" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eiw" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		Folha de Pagamento - Empresa
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="empresaform">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<h:outputText value="Empresa" styleClass="titulo" />
+					<br />
+					<br />
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" label="Nome"
+							value="#{empresaEditController.empresa.nome}" size="30"
+							maxlength="30" required="true" requiredMessage="Obrigatório" />
+						<p:message for="nome" display="text" />
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton action="#{empresaEditController.salvar}"
+						update="empresaform" value="Salvar" />
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-  <display-name>KGP - Kanban Gerenciamento de Projetos</display-name>
+  <display-name>Folha de Pagamento</display-name>
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.xhtml</param-value>
@@ -42,13 +42,4 @@
   <listener>
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
   </listener>
-  
-  <filter>
-        <filter-name>authorizationFilter</filter-name>
-        <filter-class>kgp.security.AuthorizationFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>authorizationFilter</filter-name>
-        <url-pattern>/restrito/*</url-pattern>
-    </filter-mapping>
 </web-app>

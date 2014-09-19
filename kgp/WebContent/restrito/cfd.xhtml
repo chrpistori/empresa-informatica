@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Gráficos
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="frmCFD">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<p:outputLabel value="Gráfico CFD" styleClass="titulo" />
+					<br />
+					<br />
+					<h:panelGrid columns="2" id="panelCFD">
+						<p:outputLabel for="projeto" value="Projeto:" />
+						<p:selectOneMenu value="#{dashboardController.projetoId}"
+							id="projeto" label="Projeto">
+							<f:selectItem itemLabel="Selecione o projeto" itemValue="" />
+							<f:selectItems value="#{projetoConsultaController.lista}"
+								var="_projeto" itemLabel="#{_projeto.nome}"
+								itemValue="#{_projeto.id}" />
+							<p:ajax listener="#{dashboardController.mostraGraficoCFD()}" update="cfd" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGroup id="cfd">
+						<h:panelGroup rendered="#{dashboardController.projetoId ne null}">
+							<p:lineChart value="#{dashboardController.mostraGraficoCFD()}"
+								title="#{dashboardController.projeto.nome}" legendPosition="ne"
+								stacked="true" fill="true" minY="0" minX="1" maxX="31" maxY="20"
+								xaxisLabel="Dia" yaxisLabel="nº Tarefas" />
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

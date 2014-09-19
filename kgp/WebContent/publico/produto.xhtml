@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Produto
+	</ui:define>
+
+	<ui:define name="corpo">
+		<div id="three-columns">
+			<div class="content">
+				<p:panel>
+					<h:outputText
+						value="Este sistema oferece a criação e gerenciamento de projetos, iterações e tarefas. Nele é possível também cadastrar e gerenciar novos usuários, identificando-os pelos perfis de Administrador, Gerente e Membro da Equipe. Cada perfil possui limitações de acesso." />
+						<br/>
+					<h:outputText
+						value="O sistema oferece também a criação de gráficos gerenciais, além de ser uma ferramenta completamente em Português." />
+				</p:panel>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

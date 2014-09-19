@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Kanban
+	</ui:define>
+
+	<ui:define name="corpo">
+		<div id="three-columns">
+			<div class="content">
+				<p:panel>
+					<h:outputText
+						value="Kanban é uma palavra japonesa que significa sinal visual. Esta metodologia de trabalho funciona da seguinte maneira: um sinal visual é criado para identificar se determinada tarefa deve ser feita ou não." />
+					<br />
+					<br />
+					<h:outputText value="Kanban no Desenvolvimento de Softwares" />
+					<br />
+					<h:outputText
+						value="No desenvolvimento de softwares, o Kanban se transforma em uma espécie de mural, ou quadro, nele são fixados cartões que representam determinada tarefa. O quadro então é dividido em colunas, e cada coluna representa um estágio no qual cada tarefa se encontra. A idéia principal é que o quadro esteja visível a todos os integrantes do projeto, assim todos podem visualizar o fluxo do trabalho. Ainda é possível algumas incrementar o quadro, limitando o número de tarefas em cada coluna, ou formatar os cartões conforme a prioridade da tarefa." />
+				</p:panel>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

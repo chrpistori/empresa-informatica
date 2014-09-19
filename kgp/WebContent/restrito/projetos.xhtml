@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Projetos Cadastrados
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+
+				<!-- Tela: Projetos cadastrados e Iterações por projeto -->
+
+				<h:form id="frmProjetos">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<p:outputLabel value="Projetos" styleClass="titulo" />
+					<br />
+					<br />
+					<p:commandButton value="Novo Projeto"
+						rendered="#{principalController.renderAdmGer()}"
+						style="margin-bottom: 20px;" action="projeto?faces-redirect=true" />
+
+					<h:inputHidden value="#{projetoEditController.projeto.id}"
+						id="hiddenid" />
+
+					<p:dataTable id="dt_projeto" var="projeto"
+						emptyMessage="Não foram encontrados resultados."
+						value="#{projetoConsultaController.lista}" paginator="true"
+						resizableColumns="true" paginatorPosition="bottom" rows="10"
+						rendered="true" selection="#{projetoEditController.projeto}"
+						selectionMode="single" rowKey="#{projeto.id}">
+						<f:facet name="header">
+							<h:outputText value="Projetos Cadastrados" />
+						</f:facet>
+						<p:column sortBy="#{projeto.nome}" headerText="Nome">
+							<h:outputText value="#{projeto.nome}" />
+						</p:column>
+						<p:column sortBy="#{projeto.dataInicio}"
+							headerText="Data de Início">
+							<h:outputText value="#{projeto.dataInicio}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column sortBy="#{projeto.dataTermino}"
+							headerText="Data de Término">
+							<h:outputText value="#{projeto.dataTermino}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column sortBy="#{projeto.cliente.nome}"
+							headerText="Nome Cliente">
+							<h:outputText value="#{projeto.cliente.nome}" />
+						</p:column>
+						<p:column sortBy="#{projeto.gerente.nome}"
+							headerText="Nome Gerente">
+							<h:outputText value="#{projeto.gerente.nome}" />
+						</p:column>
+
+						<p:column styleClass="dataTable_options"
+							rendered="#{principalController.renderAdmGer()}">
+							<p:commandLink update=":frmIndex:pgIndex, :frmIndex:dt_iteracao"
+								actionListener="#{projetoEditController.preparar(projeto.id)}"
+								oncomplete="dlgIndex.show();" title="Index">
+								<h:graphicImage value="../resources/imagens/index2.png" />
+							</p:commandLink>
+						</p:column>
+						<p:column styleClass="dataTable_options"
+							rendered="#{principalController.renderAdmGer()}">
+							<p:commandLink update=":frmEditar:pgEditar"
+								actionListener="#{projetoEditController.preparar(projeto.id)}"
+								oncomplete="dlgEditar.show();" title="Editar">
+								<p:graphicImage url="../resources/imagens/editar2.png" />
+							</p:commandLink>
+						</p:column>
+						<p:column styleClass="dataTable_options"
+							rendered="#{principalController.renderAdm()}">
+							<p:commandLink update=":frmExcluir"
+								actionListener="#{projetoEditController.preparar(projeto.id)}"
+								ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
+								title="Excluir">
+								<p:graphicImage url="../resources/imagens/excluir2.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+
+				<!-- Modal: Edição do projeto selecionado -->
+
+				<h:form id="frmEditar">
+					<p:dialog header="Editar Projeto" widgetVar="dlgEditar"
+						height="500" width="80%" resizable="true" id="dlgEditar"
+						modal="true">
+						<p:growl id="growlEditar" sticky="false" time="3000"
+							globalOnly="true" />
+						<h:panelGrid id="pgEditar" cellpadding="4" style="margin:0 auto;">
+							<h:panelGrid columns="3" style="margin:10px;">
+								<h:inputHidden value="#{projetoEditController.projeto.id}" />
+								<p:outputLabel value="Nome:" />
+								<p:inputText id="nome" label="Nome" style="width: 300px;"
+									value="#{projetoEditController.projeto.nome}" maxlength="30"
+									required="true" requiredMessage="Obrigatório" />
+								<p:message for="nome" display="text" />
+
+								<p:outputLabel value="Descrição:" />
+								<p:inputTextarea id="descricao" cols="80" rows="5"
+									value="#{projetoEditController.projeto.descricao}"
+									style="overflow:auto;" required="true"
+									requiredMessage="Obrigatório" />
+								<p:message for="descricao" display="text" />
+
+								<p:outputLabel value="Data de Início:" />
+								<p:calendar value="#{projetoEditController.projeto.dataInicio}"
+									navigator="true" id="datainicio" showOn="button"
+									pattern="dd/MM/yyyy" required="true" locale="pt"
+									requiredMessage="Obrigatório" />
+								<p:message for="datainicio" display="text" />
+
+								<p:outputLabel value="Data de Término:" />
+								<p:calendar value="#{projetoEditController.projeto.dataTermino}"
+									navigator="true" id="datatermino" showOn="button"
+									pattern="dd/MM/yyyy" required="true" locale="pt"
+									requiredMessage="Obrigatório" />
+								<p:message for="datatermino" display="text" />
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin:10px;">
+								<p:outputLabel value="Cliente:" style="margin-right: 82px;" />
+								<p:dataTable id="cliente" var="cliente" style="width: 750px;"
+									value="#{clienteConsultaController.lista}"
+									emptyMessage="Não foram encontrados resultados."
+									selection="#{projetoEditController.projeto.cliente}"
+									rowKey="#{cliente.nome}" paginator="true"
+									paginatorPosition="bottom" rows="10" required="true"
+									requiredMessage="Obrigatório">
+									<f:facet name="header">
+										<p:outputLabel value="Clientes Cadastrados" />
+									</f:facet>
+									<p:column selectionMode="single" styleClass="dataTable_options" />
+									<p:column headerText="Nome">
+										<p:outputLabel value="#{cliente.nome}" />
+									</p:column>
+									<p:column headerText="Tipo Pessoa">
+										<p:outputLabel value="#{cliente.tipoPessoa}" />
+									</p:column>
+									<p:column headerText="Contato">
+										<p:outputLabel value="#{cliente.contato}" />
+									</p:column>
+									<p:column headerText="E-mail">
+										<p:outputLabel value="#{cliente.email}  " />
+									</p:column>
+								</p:dataTable>
+								<p:message for="cliente" display="text" />
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin:10px;">
+								<p:outputLabel value="Gerente:" style="margin-right: 74px;" />
+								<p:dataTable id="gerentes" var="gerente" style="width: 750px;"
+									value="#{usuarioConsultaController.listaGerentes}"
+									emptyMessage="Não foram encontrados resultados."
+									selection="#{projetoEditController.projeto.gerente}"
+									rowKey="#{gerente.nome}" paginator="true"
+									paginatorPosition="bottom" rows="10" required="true"
+									requiredMessage="Obrigatório">
+									<f:facet name="header">
+										<p:outputLabel value="Gerentes Cadastrados" />
+									</f:facet>
+									<p:column selectionMode="single" styleClass="dataTable_options" />
+									<p:column headerText="Nome">
+										<p:outputLabel value="#{gerente.nome}  " />
+									</p:column>
+								</p:dataTable>
+								<p:message for="gerentes" display="text" />
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin:10px;">
+								<p:outputLabel value="Membros da Equipe:" />
+								<p:dataTable id="membros" var="membro" style="width: 750px;"
+									emptyMessage="Não foram encontrados resultados."
+									value="#{usuarioConsultaController.listaMembros}"
+									selection="#{projetoEditController.usuariosSelecionados}"
+									rowKey="#{membro.id}" paginator="true"
+									paginatorPosition="bottom" rows="10" required="true"
+									requiredMessage="Obrigatório">
+									<f:facet name="header">
+										<p:outputLabel value="Usuários Cadastrados" />
+									</f:facet>
+
+									<p:column selectionMode="multiple"
+										styleClass="dataTable_options" />
+
+									<p:column headerText="Nome">
+										<p:outputLabel value="#{membro.nome}" />
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+						</h:panelGrid>
+						<p:separator />
+						<h:panelGrid columns="2"
+							style="margin-left: 50px; margin-top: 20px; width: 90%">
+							<p:commandButton value="Atualizar"
+								update=":frmProjetos:dt_projeto, growlEditar, dlgEditar"
+								actionListener="#{projetoEditController.atualizar()}"
+								ajax="true" oncomplete="dlgEditar.hide()" />
+							<p:commandButton value="Cancelar" onclick="dlgEditar.hide()" />
+						</h:panelGrid>
+					</p:dialog>
+				</h:form>
+
+
+				<!-- Modal: Exclusão do projeto selecionado -->
+
+				<h:form id="frmExcluir">
+					<p:growl id="growlExcluir" sticky="true" />
+					<p:confirmDialog id="dlgExcluir"
+						message="Deseja excluir este projeto?" header="Excluir Projeto"
+						severity="alert" widgetVar="dlgExcluir">
+						<h:inputHidden value="#{projetoEditController.projeto.id}"
+							id="hiddenid" />
+						<p:commandButton value="Excluir"
+							update=":frmProjetos:dt_projeto, growlExcluir, dlgExcluir"
+							actionListener="#{projetoEditController.excluir()}"
+							oncomplete="dlgExcluir.hide()" />
+						<p:commandButton value="Cancelar" update=":frmProjetos:dt_projeto"
+							oncomplete="dlgExcluir.hide()" />
+					</p:confirmDialog>
+				</h:form>
+
+
+				<!-- Modal: Exclusão da iteração selecionada -->
+
+				<h:form id="frmExcluirIteracao">
+					<p:growl id="growlExcluir" sticky="true" />
+					<p:confirmDialog id="dlgExcluir"
+						message="Essa iteração pode conter tarefas cadastradas, deseja mesmo excluí-la?"
+						header="Excluir Iteração" severity="alert" widgetVar="dlgExcluir">
+						<h:inputHidden value="#{iteracaoEditController.iteracao.id}"
+							id="hiddenid" />
+						<p:commandButton value="&nbsp;Excluir"
+							update="growlExcluir, dlgExcluir"
+							actionListener="#{iteracaoEditController.excluir()}"
+							oncomplete="dlgExcluir.hide()" />
+						<p:commandButton value="Cancelar" oncomplete="dlgExcluir.hide()" />
+					</p:confirmDialog>
+				</h:form>
+
+
+				<!-- Modal: Detalhes do projeto selecionado -->
+
+				<h:form id="frmIndex">
+					<p:dialog header="Projeto Visão Geral" widgetVar="dlgIndex"
+						height="600" width="90%" resizable="true" id="dlgIndex"
+						modal="true">
+						<br />
+						<br />
+						<h:inputHidden value="#{projetoEditController.projeto.id}"
+							id="hiddenid" />
+
+						<p:fieldset style="width: 30%">
+							<h:panelGrid columns="2" id="pgIndex">
+
+								<p:outputLabel value="Nome: " for="nome" />
+								<p:outputLabel id="nome"
+									value="#{projetoEditController.projeto.nome}" />
+
+								<p:outputLabel value="Gerente: " for="gerente" />
+								<p:outputLabel id="gerente"
+									value="#{projetoEditController.projeto.gerente.nome}" />
+							</h:panelGrid>
+							<br />
+							<br />
+							<h:outputText value="Iterações" styleClass="titulo" />
+							<br />
+							<br />
+							<p:commandButton value="Nova Iteração" style="margin: 20px 0px;"
+								action="iteracao?faces-redirect=true" />
+							<p:dataTable id="dt_iteracao" var="iteracao"
+								resizableColumns="true"
+								emptyMessage="Não foram encontrados resultados."
+								value="#{iteracaoConsultaController.lista}" paginator="true"
+								paginatorPosition="bottom" rows="10"
+								selection="#{iteracaoEditController.iteracao}"
+								selectionMode="single" rowKey="#{iteracao.id}">
+								<f:facet name="header">
+									<h:outputText value="Iterações Cadastradas" />
+								</f:facet>
+								<p:column sortBy="#{iteracao.nome}" headerText="Nome">
+									<h:outputText value="#{iteracao.nome}" />
+								</p:column>
+								<p:column sortBy="#{iteracao.projeto.nome}" headerText="Projeto">
+									<h:outputText value="#{iteracao.projeto.nome}" />
+								</p:column>
+								<p:column styleClass="dataTable_options"
+									rendered="#{principalController.renderAdmGer()}">
+									<p:commandLink update=":frmExcluirIteracao"
+										actionListener="#{iteracaoEditController.preparar(iteracao.id)}"
+										ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
+										title="Excluir">
+										<p:graphicImage url="../resources/imagens/excluir2.png" />
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</p:fieldset>
+					</p:dialog>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

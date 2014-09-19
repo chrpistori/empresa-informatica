@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Usuário
+	</ui:define>
+
+	<ui:define name="corpo">
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="form">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<h:outputText value="Usuário" styleClass="titulo" />
+					<br />
+					<br />
+					<h:panelGrid columns="3" id="grid">
+						<h:inputHidden value="#{usuarioEditController.usuario.id}"
+							id="hiddenid" />
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" label="Nome"
+							value="#{usuarioEditController.usuario.nome}" size="30"
+							maxlength="30" required="true" requiredMessage="Obrigatório" />
+						<p:message for="nome" display="text" />
+
+						<p:outputLabel value="E-mail:" />
+						<p:inputText id="email" label="E-mail"
+							value="#{usuarioEditController.usuario.email}" size="30"
+							maxlength="30" required="true" requiredMessage="Obrigatório"
+							validatorMessage="Formato de e-mail inválido">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+						<p:message for="email" display="text" />
+
+						<p:outputLabel value="Telefone 1:" />
+						<p:inputMask mask="(99) 9999-9999"
+							value="#{usuarioEditController.usuario.telefone1}" size="30"
+							maxlength="15" />
+						<h:inputHidden />
+
+						<p:outputLabel value="Telefone 2:" />
+						<p:inputMask mask="(99) 9999-9999"
+							value="#{usuarioEditController.usuario.telefone2}" size="30"
+							maxlength="15" />
+						<h:inputHidden />
+
+						<p:outputLabel value="Usuário:" />
+						<p:inputText id="usuario" label="Usuario"
+							value="#{usuarioEditController.usuario.usuario}" size="30"
+							maxlength="30" required="true" requiredMessage="Obrigatório" />
+						<p:message for="usuario" display="text" />
+
+						<p:outputLabel value="Perfil:" />
+						<p:selectOneMenu id="perfil"
+							value="#{usuarioEditController.usuario.perfil}" required="true"
+							requiredMessage="Obrigatório">
+							<c:if test="#{loginController.usuarioLogado.perfil == 1}">
+								<f:selectItem itemLabel="Gerente" itemValue="2" />
+							</c:if>
+							<f:selectItem itemLabel="Membro da Equipe" itemValue="3" />
+						</p:selectOneMenu>
+						<p:message for="perfil" display="text" />
+
+						<p:outputLabel value="Senha:" />
+						<p:password id="senha" label="Senha"
+							value="#{usuarioEditController.usuario.senha}" size="30"
+							maxlength="30" required="true" requiredMessage="Obrigatório" />
+						<p:message for="senha" display="text" />
+
+						<p:outputLabel value="Confirmar Senha:" />
+						<p:password id="confirmarsenha" label="Confirmar Senha"
+							value="#{usuarioEditController.confirmarSenha}" size="30"
+							maxlength="30" required="true" requiredMessage="Obrigatório" />
+						<p:message for="confirmarsenha" display="text" />
+
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton update="form"
+						action="#{usuarioEditController.salvar}" value="Cadastrar" />
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

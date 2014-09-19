@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Clientes Cadastrados
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="frmClientes">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<p:outputLabel value="Clientes" styleClass="titulo" />
+					<br />
+					<br />
+					<p:commandButton value="Novo Cliente"
+						action="cliente?faces-redirect=true"
+						rendered="#{principalController.renderAdm()}"
+						style="margin-bottom: 20px;" />
+					<p:dataTable id="dt_cliente" var="cliente" resizableColumns="true"
+						emptyMessage="Não foram encontrados resultados."
+						value="#{clienteConsultaController.lista}" paginator="true"
+						paginatorPosition="bottom" rows="10"
+						selection="#{clienteConsultaController.cliente}"
+						selectionMode="single" rowKey="#{cliente.id}">
+						<f:facet name="header">
+							<h:outputText value="Clientes Cadastrados" />
+						</f:facet>
+						<p:column sortBy="#{cliente.nome}" headerText="Nome">
+							<h:outputText value="#{cliente.nome}" />
+						</p:column>
+						<p:column sortBy="#{cliente.tipoPessoa}" headerText="Tipo Pessoa">
+							<h:outputText value="#{cliente.tipoPessoa}" />
+						</p:column>
+						<p:column sortBy="#{cliente.cep}" headerText="CEP">
+							<h:outputText value="#{cliente.cep}" />
+						</p:column>
+						<p:column sortBy="#{cliente.telefone1}" headerText="Telefone 1">
+							<h:outputText value="#{cliente.telefone1}" />
+						</p:column>
+						<p:column sortBy="#{cliente.telefone2}" headerText="Telefone 2">
+							<h:outputText value="#{cliente.telefone2}" />
+						</p:column>
+						<p:column sortBy="#{cliente.contato}" headerText="Contato">
+							<h:outputText value="#{cliente.contato}" />
+						</p:column>
+						<p:column sortBy="#{cliente.email}" headerText="E-mail">
+							<h:outputText value="#{cliente.email}" />
+						</p:column>
+						<p:column styleClass="dataTable_options"
+							rendered="#{principalController.renderAdm()}">
+							<p:commandLink update=":frmEditar:pgEditar"
+								actionListener="#{clienteEditController.preparar(cliente.id)}"
+								oncomplete="dlgEditar.show();" title="Editar">
+								<p:graphicImage url="../resources/imagens/editar2.png" />
+							</p:commandLink>
+						</p:column>
+						<p:column styleClass="dataTable_options"
+							rendered="#{principalController.renderAdm()}">
+							<p:commandLink update=":frmExcluir"
+								actionListener="#{clienteEditController.preparar(cliente.id)}"
+								ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
+								title="Excluir">
+								<p:graphicImage url="../resources/imagens/excluir2.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+
+				<h:form id="frmEditar">
+					<p:dialog header="Editar Cliente" widgetVar="dlgEditar"
+						resizable="false" id="dlgEditar" modal="true">
+						<p:growl id="growlEditar" sticky="false" />
+						<h:panelGrid id="pgEditar" columns="3" cellpadding="4"
+							style="margin:0 auto;">
+							<h:inputHidden value="#{clienteEditController.cliente.id}"
+								id="hiddenid" />
+							<p:outputLabel value="Nome/Razão Social:" />
+							<p:inputText id="nome_razao" label="Nome/Razão Social"
+								value="#{clienteEditController.cliente.nome}" size="30"
+								maxlength="30" required="true" requiredMessage="Obrigatório" />
+							<p:message for="nome_razao" display="text" />
+
+							<p:outputLabel value="Pessoa:" />
+							<p:selectOneMenu id="tipopessoa"
+								value="#{clienteEditController.cliente.tipoPessoa}"
+								required="true" requiredMessage="Obrigatório">
+								<f:selectItem itemLabel="Física" itemValue="Física" />
+								<f:selectItem itemLabel="Jurídica" itemValue="Jurídica" />
+							</p:selectOneMenu>
+							<p:message for="tipopessoa" display="text" />
+
+							<p:outputLabel value="CEP:" />
+							<p:inputMask id="cep" label="CEP" mask="99.999-999"
+								value="#{clienteEditController.cliente.cep}" size="15"
+								maxlength="10" required="true" requiredMessage="Obrigatório" />
+							<p:message for="cep" display="text" />
+
+							<p:outputLabel value="Logradouro:" />
+							<p:selectOneMenu id="logradouro" label="Logradouro"
+								value="#{clienteEditController.cliente.logradouro}"
+								required="true" requiredMessage="Obrigatório">
+								<f:selectItem itemLabel="Selecione o logradouro..." itemValue="" />
+								<f:selectItem itemLabel="Avenida" itemValue="Avenida" />
+								<f:selectItem itemLabel="Rua" itemValue="Rua" />
+								<f:selectItem itemLabel="Travessa" itemValue="Travessa" />
+								<f:selectItem itemLabel="Praça" itemValue="Praça" />
+							</p:selectOneMenu>
+							<p:message for="logradouro" display="text" />
+
+							<p:outputLabel value="Endereço" />
+							<p:inputText id="endereco" label="Endereço"
+								value="#{clienteEditController.cliente.endereco}" size="30"
+								maxlength="30" required="true" requiredMessage="Obrigatório" />
+							<p:message for="endereco" display="text" />
+
+							<p:outputLabel value="Número:" />
+							<p:inputMask id="numero" label="Numero" mask="9?9999"
+								value="#{clienteEditController.cliente.numero}" size="15"
+								maxlength="5" required="true" requiredMessage="Obrigatório" />
+							<p:message for="numero" display="text" />
+
+							<p:outputLabel value="Bairro:" />
+							<p:inputText id="bairro" label="Bairro"
+								value="#{clienteEditController.cliente.bairro}" size="30"
+								maxlength="30" required="true" requiredMessage="Obrigatório" />
+							<p:message for="bairro" display="text" />
+
+							<p:outputLabel value="Contato:" />
+							<p:inputText id="contato" label="Contato"
+								value="#{clienteEditController.cliente.contato}" size="30"
+								maxlength="30" required="true" requiredMessage="Obrigatório" />
+							<p:message for="contato" display="text" />
+
+							<p:outputLabel value="Telefone 1:" />
+							<p:inputMask mask="(99) 9999-9999" id="telefone1"
+								label="Telefone 1"
+								value="#{clienteEditController.cliente.telefone1}" size="15"
+								maxlength="15" required="true" requiredMessage="Obrigatório" />
+
+							<p:message for="telefone1" display="text" />
+
+							<p:outputLabel value="Telefone 2:" />
+							<p:inputMask mask="(99) 9999-9999" id="telefone2"
+								label="Telefone 2"
+								value="#{clienteEditController.cliente.telefone2}" size="15"
+								maxlength="15" />
+							<p:message for="telefone2" display="text" />
+
+
+							<p:outputLabel value="E-mail:" />
+							<p:inputText id="email" label="E-mail"
+								value="#{clienteEditController.cliente.email}" size="30"
+								maxlength="30" required="true" requiredMessage="Obrigatório"
+								validatorMessage="Formato de e-mail inválido">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+
+							<p:message for="email" display="text" />
+						</h:panelGrid>
+						<p:separator />
+						<h:panelGrid columns="2"
+							style="margin-left: 50px; margin-top: 20px; width: 90%">
+							<p:commandButton value="&nbsp;Atualizar"
+								update=":frmClientes:dt_cliente, growlEditar, dlgEditar"
+								actionListener="#{clienteEditController.atualizar()}"
+								ajax="true" oncomplete="dlgEditar.hide()" />
+							<p:commandButton value="&nbsp;Cancelar"
+								onclick="dlgEditar.hide()" />
+						</h:panelGrid>
+					</p:dialog>
+				</h:form>
+
+				<h:form id="frmExcluir">
+					<p:growl id="growlExcluir" sticky="true" />
+					<p:confirmDialog id="dlgExcluir"
+						message="Deseja excluir este cliente?" header="Excluir Cliente"
+						severity="alert" widgetVar="dlgExcluir">
+						<h:inputHidden value="#{clienteEditController.cliente.id}"
+							id="hiddenid" />
+						<p:commandButton value="Excluir"
+							update=":frmClientes:dt_cliente, growlExcluir, dlgExcluir"
+							actionListener="#{clienteEditController.excluir()}"
+							oncomplete="dlgExcluir.hide()" />
+						<p:commandButton value="&nbsp;Cancelar"
+							update=":frmClientes:dt_cliente" oncomplete="dlgExcluir.hide()" />
+
+					</p:confirmDialog>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

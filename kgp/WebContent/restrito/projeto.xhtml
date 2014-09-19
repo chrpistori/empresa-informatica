@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Projeto
+	</ui:define>
+
+
+	<ui:define name="corpo">
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="frmProjeto">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<h:outputText value="Projeto" styleClass="titulo" />
+					<br />
+					<br />
+					<h:panelGrid columns="3" style="margin:10px;">
+						<h:inputHidden value="#{projetoEditController.projeto.id}" />
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" label="Nome" style="width: 300px;"
+							value="#{projetoEditController.projeto.nome}" maxlength="30"
+							required="true" requiredMessage="Obrigatório" />
+						<p:message for="nome" display="text" />
+
+						<p:outputLabel value="Descrição:" />
+						<p:inputTextarea id="descricao" cols="80" rows="5"
+							value="#{projetoEditController.projeto.descricao}"
+							style="overflow:auto;" required="true"
+							requiredMessage="Obrigatório" />
+						<p:message for="descricao" display="text" />
+
+						<p:outputLabel value="Data de Início:" />
+						<p:calendar value="#{projetoEditController.projeto.dataInicio}"
+							navigator="true" id="datainicio" showOn="button"
+							pattern="dd/MM/yyyy" required="true" locale="pt"
+							requiredMessage="Obrigatório" />
+						<p:message for="datainicio" display="text" />
+
+						<p:outputLabel value="Data de Término:" />
+						<p:calendar value="#{projetoEditController.projeto.dataTermino}"
+							navigator="true" id="datatermino" showOn="button"
+							pattern="dd/MM/yyyy" required="true" locale="pt"
+							requiredMessage="Obrigatório" />
+						<p:message for="datatermino" display="text" />
+					</h:panelGrid>
+					<h:panelGrid columns="3" style="margin:10px;">
+						<p:outputLabel value="Cliente:" style="margin-right: 82px;" />
+						<p:dataTable id="cliente" var="cliente" style="width: 750px;"
+							value="#{clienteConsultaController.lista}"
+							emptyMessage="Não foram encontrados resultados."
+							selection="#{projetoEditController.projeto.cliente}"
+							rowKey="#{cliente.nome}" paginator="true"
+							paginatorPosition="bottom" rows="10" required="true"
+							requiredMessage="Obrigatório">
+							<f:facet name="header">
+								<p:outputLabel value="Clientes Cadastrados" />
+							</f:facet>
+							<p:column selectionMode="single" styleClass="dataTable_options" />
+							<p:column headerText="Nome">
+								<p:outputLabel value="#{cliente.nome}" />
+							</p:column>
+							<p:column headerText="Tipo Pessoa">
+								<p:outputLabel value="#{cliente.tipoPessoa}" />
+							</p:column>
+							<p:column headerText="Contato">
+								<p:outputLabel value="#{cliente.contato}" />
+							</p:column>
+							<p:column headerText="E-mail">
+								<p:outputLabel value="#{cliente.email}  " />
+							</p:column>
+						</p:dataTable>
+						<p:message for="cliente" display="text" />
+					</h:panelGrid>
+					<h:panelGrid columns="3" style="margin:10px;">
+						<p:outputLabel value="Gerente:" style="margin-right: 74px;" />
+						<p:dataTable id="gerentes" var="gerente" style="width: 750px;"
+							value="#{usuarioConsultaController.listaGerentes}"
+							emptyMessage="Não foram encontrados resultados."
+							selection="#{projetoEditController.projeto.gerente}"
+							rowKey="#{gerente.nome}" paginator="true"
+							paginatorPosition="bottom" rows="10" required="true"
+							requiredMessage="Obrigatório">
+							<f:facet name="header">
+								<p:outputLabel value="Gerentes Cadastrados" />
+							</f:facet>
+							<p:column selectionMode="single" styleClass="dataTable_options" />
+							<p:column headerText="Nome">
+								<p:outputLabel value="#{gerente.nome}  " />
+							</p:column>
+						</p:dataTable>
+						<p:message for="gerentes" display="text" />
+					</h:panelGrid>
+					<h:panelGrid columns="3" style="margin:10px;">
+						<p:outputLabel value="Membros da Equipe:" />
+						<p:dataTable id="membros" var="membro" style="width: 750px;"
+							emptyMessage="Não foram encontrados resultados."
+							value="#{usuarioConsultaController.listaMembros}"
+							selection="#{projetoEditController.usuariosSelecionados}"
+							rowKey="#{membro.id}" paginator="true" paginatorPosition="bottom"
+							rows="10" required="true" requiredMessage="Obrigatório">
+							<f:facet name="header">
+								<p:outputLabel value="Usuários Cadastrados" />
+							</f:facet>
+
+							<p:column selectionMode="multiple" styleClass="dataTable_options" />
+
+							<p:column headerText="Nome">
+								<p:outputLabel value="#{membro.nome}" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+					<p:separator />
+					<p:commandButton update="frmProjeto" type="reset" value="Limpar"
+						immediate="true" ajax="true" />
+					<p:commandButton action="#{projetoEditController.salvar}"
+						update="frmProjeto" value="Salvar" />
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

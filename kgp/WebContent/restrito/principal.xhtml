@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		KGP - Gerenciamento de Projetos
+	</ui:define>
+
+	<ui:define name="corpo">
+		<style type="text/css">
+.btnsPrincipal {
+	width: 180px;
+	margin: 30px 0px;
+}
+
+.ui-widget-header {
+	border: 1px thick #ddd;
+	background: #eee;
+	cursor: move;
+}
+</style>
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="frmPrincipal">
+					<p:growl id="messages" showDetail="false" autoUpdate="true"
+						closable="true" />
+
+					<h:panelGrid columns="2" cellpadding="5" width="100%"
+						id="panelProjeto">
+						<p:panel header="Projeto" style="height: 110px;">
+							<h:panelGrid columns="2" style="width: 100%;">
+
+								<p:outputLabel for="projeto" value="Projeto:" />
+								<p:selectOneMenu value="#{dashboardController.projetoId}"
+									id="projeto" label="Projeto" style="width: 60%">
+									<p:ajax update="panelIter" />
+									<f:selectItem itemLabel="Selecione o projeto" itemValue="1" />
+									<f:selectItems value="#{projetoConsultaController.lista}"
+										var="_projeto" itemLabel="#{_projeto.nome}"
+										itemValue="#{_projeto.id}" />
+									<p:ajax update="gerente" />
+								</p:selectOneMenu>
+								<h:inputHidden rendered="#{principalController.renderMembro()}" />
+
+								<p:outputLabel value="Gerente:" />
+								<p:outputLabel id="gerente"
+									value="#{dashboardController.projeto.gerente.nome}" />
+
+							</h:panelGrid>
+						</p:panel>
+						<p:panel id="panelIter" header="Iteração" style="height: 110px;">
+							<h:panelGrid columns="2" id="panelIteracao" style="width: 60%;">
+								<p:outputLabel for="iteracao" value="Iteração:" />
+								<p:selectOneMenu id="iteracao" label="Iteração"
+									style="width: 100%" value="#{dashboardController.iteracaoId}">
+									<f:selectItem itemLabel="Selecione a iteração" itemValue="" />
+									<f:selectItems value="#{dashboardController.listarIteracoes()}"
+										var="iteracao" itemValue="#{iteracao.id}"
+										itemLabel="#{iteracao.nome}" />
+									<p:ajax update=":form:board, dataInicio, dataTermino"
+										listener="#{dashboardController.atualizarKanban}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Período:" />
+								<h:panelGrid columns="3" style="width: 200px;">
+									<h:outputLabel id="dataInicio"
+										value="#{dashboardController.iteracao.dataInicio}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputLabel>
+									<h:outputLabel value=" - " />
+									<h:outputLabel id="dataTermino"
+										value="#{dashboardController.iteracao.dataTermino}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputLabel>
+								</h:panelGrid>
+
+							</h:panelGrid>
+						</p:panel>
+					</h:panelGrid>
+				</h:form>
+
+				<h:form id="form">
+					<p:dialog widgetVar="modalAtribuir" modal="true" id="modalAtribuir"
+						style="overflow: none;" width="360" height="350"
+						header="Editar Tarefa" resizable="false">
+						<h:panelGrid columns="1" id="panelModalAtribuir">
+							<h:panelGrid columns="2" style="margin:10px;"
+								rendered="#{dashboardController.renderModalAtribuir()}">
+								<p:outputLabel value="Nome: " />
+								<p:inputText id="nome"
+									value="#{dashboardController.tarefaSelecionada.nome}" />
+
+								<p:outputLabel value="Descrição: " />
+								<p:inputTextarea id="descricao" cols="22" rows="5"
+									value="#{dashboardController.tarefaSelecionada.descricao}"
+									style="overflow:auto;" required="true"
+									requiredMessage="Obrigatório" />
+
+								<p:outputLabel value="Prioridade: " />
+								<h:selectOneMenu label="Prioridade" id="prioridade"
+									required="true" requiredMessage="A prioridade é obrigatória"
+									value="#{dashboardController.tarefaSelecionada.prioridade}">
+									<f:selectItem itemLabel="Selecione a prioridade" itemValue="" />
+									<f:selectItem itemLabel="Baixa" itemValue="1" />
+									<f:selectItem itemLabel="Média" itemValue="2" />
+									<f:selectItem itemLabel="Alta" itemValue="3" />
+								</h:selectOneMenu>
+
+
+							</h:panelGrid>
+
+							<h:panelGrid columns="2">
+								<p:commandButton value="Cadastrar" update=":form:board"
+									actionListener="#{dashboardController.atualizarTarefa}"
+									ajax="true" oncomplete="modalAtribuir.hide()" />
+								<p:commandButton value="Cancelar"
+									action="#{dashboardController.cancelarAtribuicao}"
+									update=":form:board" oncomplete="modalAtribuir.hide()" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:dialog>
+					<h:panelGroup id="jsModalAtribuir">
+						<h:panelGroup
+							rendered="#{dashboardController.renderModalAtribuir()}">
+							<script type="text/javascript">
+								modalAtribuir.show();
+							</script>
+						</h:panelGroup>
+					</h:panelGroup>
+
+					<h:panelGroup id="board">
+						<h:panelGroup rendered="#{dashboardController.iteracaoId ne null}">
+
+							<h:panelGroup>
+								<p:commandButton ajax="true" immediate="false"
+									value="Nova Tarefa" style="margin: 10px;"
+									rendered="#{principalController.renderAdmGer()}"
+									oncomplete="dlgTarefa.show();" title="Tarefa" />
+
+								<p:commandButton action="tarefas?faces-redirect=true"
+									value="Lançar Horas" style="margin: 10px; float:right;" />
+							</h:panelGroup>
+
+							<h:panelGroup style="width: 100%">
+								<div style="width: 100%; height: 20px;">
+									<div class="kanban-header" style="background-color: #1e98d6;">
+										<p:outputLabel value="Novo" styleClass="kanban-header-text" />
+									</div>
+									<div class="kanban-header" style="background-color: #34a97b;">
+										<p:outputLabel value="A Fazer" styleClass="kanban-header-text" />
+									</div>
+									<div class="kanban-header" style="background-color: #ffa210;">
+										<p:outputLabel value="Em Andamento"
+											styleClass="kanban-header-text" />
+									</div>
+									<div class="kanban-header" style="background-color: #ae1d54;">
+										<p:outputLabel value="Concluído"
+											styleClass="kanban-header-text" />
+									</div>
+								</div>
+								<p:dashboard binding="#{dashboardController.dashboard}"
+									style="width: 100%">
+
+									<p:ajax event="reorder"
+										listener="#{dashboardController.handleReorder}"
+										update=":frmPrincipal:messages, jsModalAtribuir, panelModalAtribuir" />
+								</p:dashboard>
+								<p:fieldset legend="Legenda" style="width: 400px; float: right; margin-top: 10px;">
+									<h:panelGrid id="legenda" columns="8">
+										<div style="margin: 5px; width: 18px; height: 14px; border-radius: 3px;" class="panel-sem-prioridade" ></div>
+										<p:outputLabel value="Sem prioridade"/>
+										<div style="margin: 5px; width: 18px; height: 14px; border-radius: 3px;" class="panel-baixa-prioridade"></div>
+										<p:outputLabel value="Baixa"/>
+										<div style="margin: 5px; width: 18px; height: 14px; border-radius: 3px;" class="panel-media-prioridade"></div>
+										<p:outputLabel value="Média"/>
+										<div style="margin: 5px; width: 18px; height: 14px; border-radius: 3px;" class="panel-alta-prioridade"></div>
+										<p:outputLabel value="Alta"/>
+									</h:panelGrid>
+								</p:fieldset>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:form>
+
+				<h:form id="frmTarefa">
+					<p:dialog header="Nova Tarefa" widgetVar="dlgTarefa" height="340"
+						width="340" resizable="true" id="dlgTarefa" modal="true">
+						<br />
+						<br />
+						<h:panelGrid columns="3" style="margin:10px;">
+							<p:outputLabel value="Nome: " />
+							<p:inputText id="nome" required="true"
+								requiredMessage="O nome da tarefa é obrigatório"
+								value="#{dashboardController.tarefa.nome}" />
+							<p:message for="nome" display="text" />
+
+							<p:outputLabel value="Descrição: " />
+							<p:inputTextarea id="descricao" cols="22" rows="5"
+								value="#{dashboardController.tarefa.descricao}"
+								style="overflow:auto;" required="true"
+								requiredMessage="A descrição da tarefa é obrigatório" />
+							<p:message for="descricao" display="text" />
+
+							<p:outputLabel value="Duração: " />
+							<p:inputText id="duracao" required="true"
+								requiredMessage="A duração da tarefa é obrigatório"
+								value="#{dashboardController.tarefa.duracao}" />
+							<p:message for="duracao" display="text" />
+						</h:panelGrid>
+
+
+						<h:panelGrid columns="2"
+							style="margin-left: 50px; margin-top: 20px; width: 90%">
+							<p:commandButton value="Cadastrar"
+								update=":form:board, frmTarefa"
+								actionListener="#{dashboardController.salvarTarefa}" ajax="true"
+								oncomplete="dlgTarefa.hide()" />
+							<p:commandButton value="Cancelar" oncomplete="dlgTarefa.hide()" />
+						</h:panelGrid>
+
+					</p:dialog>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

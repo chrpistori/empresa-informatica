@@ -21,7 +21,7 @@
 					<p:outputLabel value="Empresas" styleClass="titulo" />
 					<br />
 					<br />
-					<p:commandButton value="Novo Empresa"
+					<p:commandButton value="Nova Empresa"
 						action="empresa?faces-redirect=true"
 						style="margin-bottom: 20px;" />
 					<p:dataTable id="dt_empresa" var="empresa" resizableColumns="true"
@@ -52,6 +52,8 @@
 							</p:commandLink>
 						</p:column>
 					</p:dataTable>
+					
+					<p:commandButton action="login?faces-redirect=true" value="Voltar"/>
 				</h:form>
 
 				<h:form id="frmEditar">

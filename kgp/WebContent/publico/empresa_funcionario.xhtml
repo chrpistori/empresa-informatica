@@ -9,7 +9,7 @@
 <ui:composition template="/templates/principal.xhtml">
 
 	<ui:define name="titulo">
-		Folha de Pagamento - Atribuir Empresa ao Funcionário
+		Folha de Pagamento - Contratar Analista
 	</ui:define>
 
 	<ui:define name="corpo">
@@ -17,8 +17,8 @@
 		<div id="three-columns">
 			<div class="content">
 				<h:form id="empresafuncform">
-					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
-					<h:outputText value="Empresa" styleClass="titulo" />
+<!-- 					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" /> -->
+					<h:outputText value="Contratar Analista" styleClass="titulo" />
 					<br />
 					<br />
 					<h:panelGrid columns="2">
@@ -41,7 +41,9 @@
 					<br />
 					<br />
 					<p:commandButton action="#{funcionarioEditController.atualizar}"
-						update="empresafuncform" value="Atualizar" />
+						update="empresafuncform" value="Contratar" />
+					<p:commandButton value="Voltar"
+							action="login?faces-redirect=true"/>
 				</h:form>
 			</div>
 		</div>

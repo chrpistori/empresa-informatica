@@ -30,12 +30,12 @@
 					</h:panelGrid>
 					<br />
 					<br />
-					<p:commandButton action="#{empresaEditController.salvar}"
-						update="empresaform" value="Salvar" />
-					<p:commandButton action="empresas?faces-redirect=true" value="Voltar"/>
+					<p:commandButton action="#{empresaEditController.salvar}" value="Salvar" />
+					<p:commandButton value="Voltar"
+							action="empresas?faces-redirect=true"/>
 				</h:form>
 			</div>
-		</div>
+		</div>	
 	</ui:define>
 </ui:composition>
 </html>

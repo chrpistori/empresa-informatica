@@ -23,16 +23,16 @@ public class EmpresaEditController {
 
 			empresa = new Empresa();
 			FacesMessage facesMessage = new FacesMessage(
-					"Empresa inserido com sucesso.");
+					"Empresa inserida com sucesso.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/empresas?faces-redirect=true"; // TODO
+			return "/publico/empresas?faces-redirect=true";
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage facesMessage = new FacesMessage(
 					"Falha ao salvar o empresa.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/empresa?faces-redirect=true"; // TODO
+			return "/publico/empresas	?faces-redirect=true";
 		}
 	}
 
@@ -50,12 +50,12 @@ public class EmpresaEditController {
 			FacesMessage facesMessage = new FacesMessage(
 					"Empresa editado com sucesso.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/empresas?faces-redirect=true";
+			return "/publico/empresas?faces-redirect=true";
 		} catch (Exception e) {
 			FacesMessage facesMessage = new FacesMessage(
 					"Falha ao editar o empresa.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/empresas?faces-redirect=true";
+			return "/publico/empresas?faces-redirect=true";
 		}
 	}
 
@@ -67,15 +67,15 @@ public class EmpresaEditController {
 			empresaDAO.desativaEmpresa(empresa);
 
 			FacesMessage facesMessage = new FacesMessage(
-					"Empresa excluído com sucesso.");
+					"Empresa excluída com sucesso.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/empresas?faces-redirect=true";
+			return "/publico/empresas?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage facesMessage = new FacesMessage(
-					"Falha ao excluir o empresa.");
+					"Falha ao excluir a empresa.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/empresas?faces-redirect=true";
+			return "/publico/empresas?faces-redirect=true";
 		}
 	}
 	

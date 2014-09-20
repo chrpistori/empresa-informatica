@@ -25,14 +25,14 @@ public class FuncionarioEditController {
 			FacesMessage facesMessage = new FacesMessage(
 					"Funcionario inserido com sucesso.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/funcionarios?faces-redirect=true"; // TODO
+			return "/publico/funcionarios?faces-redirect=true"; // TODO
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage facesMessage = new FacesMessage(
 					"Falha ao salvar o funcionario.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/funcionario?faces-redirect=true"; // TODO
+			return "/publico/funcionario?faces-redirect=true"; // TODO
 		}
 	}
 
@@ -50,12 +50,12 @@ public class FuncionarioEditController {
 			FacesMessage facesMessage = new FacesMessage(
 					"Funcionario editado com sucesso.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/funcionarios?faces-redirect=true";
+			return "/publico/funcionarios?faces-redirect=true";
 		} catch (Exception e) {
 			FacesMessage facesMessage = new FacesMessage(
 					"Falha ao editar o funcionario.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/funcionarios?faces-redirect=true";
+			return "/publico/funcionarios?faces-redirect=true";
 		}
 	}
 
@@ -69,13 +69,13 @@ public class FuncionarioEditController {
 			FacesMessage facesMessage = new FacesMessage(
 					"Funcionario excluído com sucesso.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/funcionarios?faces-redirect=true";
+			return "/publico/funcionarios?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage facesMessage = new FacesMessage(
 					"Falha ao excluir o funcionario.");
 			context.addMessage(null, facesMessage);
-			return "/restrito/funcionarios?faces-redirect=true";
+			return "/publico/funcionarios?faces-redirect=true";
 		}
 	}
 

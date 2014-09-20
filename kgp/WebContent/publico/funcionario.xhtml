@@ -15,69 +15,72 @@
 	<ui:define name="corpo">
 
 		<div id="three-columns">
-			<div class="content">
-				<h:form id="funcionarioform">
-					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
-					<h:outputText value="Funcionário" styleClass="titulo" />
-					<br />
-					<br />
-					<h:panelGrid columns="3">
-						<p:outputLabel value="Código:" />
-						<p:inputText id="codigo" label="Codigo"
-							value="#{funcionarioEditController.funcionario.codigo}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="codigo" display="text" />
+		<div class="content">
+		<h:form id="funcionarioform">
+			<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+			<h:outputText value="Funcionário" styleClass="titulo" />
+			<br />
+			<br />
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Código:" />
+				<p:inputText id="codigo" label="Codigo"
+					value="#{funcionarioEditController.funcionario.codigo}" size="30"
+					maxlength="30" required="true" requiredMessage="Obrigatório" />
+				<p:message for="codigo" display="text" />
 
-						<p:outputLabel value="Nome:" />
-						<p:inputText id="nome" label="Nome"
-							value="#{funcionarioEditController.funcionario.nome}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="nome" display="text" />
-						 
-						<p:outputLabel value="Cargo:" />
-						<p:selectOneMenu id="cargo" label="Cargo"
-							value="#{funcionarioEditController.funcionario.cargo}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" >
-							<f:selectItem itemLabel="Selecione a cargo..." itemValue="" />
-							<f:selectItem itemLabel="Analista" itemValue="1" />
-							<f:selectItem itemLabel="Programador" itemValue="2" />
-							<f:selectItem itemLabel="Gerente" itemValue="3" />
-							<f:selectItem itemLabel="Diretor" itemValue="4" />
-						</p:selectOneMenu>
-						<p:message for="cargo" display="text" />
+				<p:outputLabel value="Nome:" />
+				<p:inputText id="nome" label="Nome"
+					value="#{funcionarioEditController.funcionario.nome}" size="30"
+					maxlength="30" required="true" requiredMessage="Obrigatório" />
+				<p:message for="nome" display="text" />
 
-						<p:outputLabel value="Salário:" />
-						<p:inputText id="salario" label="Salário"
-							value="#{funcionarioEditController.funcionario.salario}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="salario" display="text" />
-						
-						<p:outputLabel value="Valor Hora:" />
-						<p:inputText id="valorHora" label="Valor Hora"
-							value="#{funcionarioEditController.funcionario.valorHora}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="valorHora" display="text" />
-						
-						<p:outputLabel value="Comissão:" />
-						<p:inputText id="comissao" label="Comissão"
-							value="#{funcionarioEditController.funcionario.comissao}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="comissao" display="text" />
+				<p:outputLabel value="Cargo:" />
+				<p:selectOneMenu id="cargo" label="Cargo"
+					value="#{funcionarioEditController.funcionario.cargo}" size="30"
+					maxlength="30" required="true" requiredMessage="Obrigatório">
+					<f:selectItem itemLabel="Selecione a cargo..." itemValue="" />
+					<f:selectItem itemLabel="Analista" itemValue="1" />
+					<f:selectItem itemLabel="Programador" itemValue="2" />
+					<f:selectItem itemLabel="Gerente" itemValue="3" />
+					<f:selectItem itemLabel="Diretor" itemValue="4" />
+				</p:selectOneMenu>
+				<p:message for="cargo" display="text" />
 
-<!-- 						<p:outputLabel value="Empresa:" /> // TODO: Adicionar lista de empresas -->
-<!-- 						<p:selectOneMenu id="empresa" label="Empresa" -->
-<!-- 							value="#{funcionarioEditController.funcionario.empresa}" -->
-<!-- 							required="true" requiredMessage="Obrigatório"> -->
-<!-- 							<f:selectItem itemLabel="Selecione a empresa..." itemValue="" /> -->
-<!-- 						</p:selectOneMenu> -->
-<!-- 						<p:message for="empresa" display="text" /> -->
-					</h:panelGrid>
-					<br />
-					<br />
-					<p:commandButton action="#{funcionarioEditController.salvar}"
-						update="funcionarioform" value="Salvar" />
-				</h:form>
-			</div>
+				<p:outputLabel value="Salário:" />
+				<p:inputText id="salario" label="Salário"
+					value="#{funcionarioEditController.funcionario.salario}" size="30"
+					maxlength="30" required="true" requiredMessage="Obrigatório" />
+				<p:message for="salario" display="text" />
+
+				<p:outputLabel value="Valor Hora:" />
+				<p:inputText id="valorHora" label="Valor Hora"
+					value="#{funcionarioEditController.funcionario.valorHora}"
+					size="30" maxlength="30" required="true"
+					requiredMessage="Obrigatório" />
+				<p:message for="valorHora" display="text" />
+
+				<p:outputLabel value="Comissão:" />
+				<p:inputText id="comissao" label="Comissão"
+					value="#{funcionarioEditController.funcionario.comissao}" size="30"
+					maxlength="30" required="true" requiredMessage="Obrigatório" />
+				<p:message for="comissao" display="text" />
+
+				<p:outputLabel value="Empresa:" />
+				<p:selectOneMenu id="empresa" label="Empresa"
+					value="funcionarioEditController.funcionario.empresa.id">
+					<f:selectItem itemLabel="Selecione a empresa..." itemValue="" />
+					<f:selectItems value="#{empresaConsultaController.lista}"
+						var="_empresa" itemLabel="#{_empresa.nome}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+			<br />
+			<br />
+			<p:commandButton action="#{funcionarioEditController.salvar}"
+				update="funcionarioform" value="Salvar" />
+			<p:commandButton action="funcionarios?faces-redirect=true" value="Voltar"/>
+		</h:form>
+		</div>
 		</div>
 	</ui:define>
 </ui:composition>

@@ -12,150 +12,156 @@
 		Folha de Pagamento - Lista de Funcionarios
 	</ui:define>
 
-<ui:define name="corpo">
+	<ui:define name="corpo">
 
 		<div id="three-columns">
-			<div class="content">
-				<h:form id="frmFuncionarios">
-					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
-					<p:outputLabel value="Funcionarios" styleClass="titulo" />
-					<br />
-					<br />
-					<p:commandButton value="Novo Funcionario"
-						action="funcionario?faces-redirect=true"
-						style="margin-bottom: 20px;" />
-					<p:dataTable id="dt_funcionario" var="funcionario" resizableColumns="true"
-						emptyMessage="Não foram encontrados resultados."
-						value="#{funcionarioConsultaController.lista}" paginator="true" 
-						paginatorPosition="bottom" rows="10"
-						selection="#{funcionarioConsultaController.funcionario}"
-						selectionMode="single" rowKey="#{funcionario.id}">
-						<f:facet name="header">
-							<h:outputText value="Funcionarios Cadastrados" />
-						</f:facet>
-						<p:column sortBy="#{funcionario.codigo}" headerText="Código">
-							<h:outputText value="#{funcionario.codigo}" />
-						</p:column>
-						<p:column sortBy="#{funcionario.nome}" headerText="Nome">
-							<h:outputText value="#{funcionario.nome}" />
-						</p:column>
-						<p:column sortBy="#{funcionario.cargo}" headerText="Cargo">
-							<h:outputText value="#{funcionario.cargo}" />
-						</p:column>
-						<p:column sortBy="#{funcionario.salario}" headerText="Salário">
-							<h:outputText value="#{funcionario.salario}" />
-						</p:column>
-						<p:column sortBy="#{funcionario.empresa}" headerText="Empresa">
-							<h:outputText value="#{funcionario.empresa.nome}" />
-						</p:column>
-						<p:column styleClass="dataTable_options">
-							<p:commandLink update=":frmEditar:pgEditar"
-								actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
-								oncomplete="dlgEditar.show();" title="Editar">
-								<p:graphicImage url="../resources/imagens/editar2.png" />
-							</p:commandLink>
-						</p:column>
-						<p:column styleClass="dataTable_options">
-							<p:commandLink update=":frmExcluir"
-								actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
-								ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
-								title="Excluir">
-								<p:graphicImage url="../resources/imagens/excluir2.png" />
-							</p:commandLink>
-						</p:column>
-					</p:dataTable>
-				</h:form>
+		<div class="content">
+		<h:form id="frmFuncionarios">
+			<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+			<p:outputLabel value="Funcionarios" styleClass="titulo" />
+			<br />
+			<br />
+			<p:commandButton value="Novo Funcionario"
+				action="funcionario?faces-redirect=true"
+				style="margin-bottom: 20px;" />
+			<p:dataTable id="dt_funcionario" var="funcionario"
+				resizableColumns="true"
+				emptyMessage="Não foram encontrados resultados."
+				value="#{funcionarioConsultaController.lista}" paginator="true"
+				paginatorPosition="bottom" rows="10"
+				selection="#{funcionarioConsultaController.funcionario}"
+				selectionMode="single" rowKey="#{funcionario.id}">
+				<f:facet name="header">
+					<h:outputText value="Funcionarios Cadastrados" />
+				</f:facet>
+				<p:column sortBy="#{funcionario.codigo}" headerText="Código">
+					<h:outputText value="#{funcionario.codigo}" />
+				</p:column>
+				<p:column sortBy="#{funcionario.nome}" headerText="Nome">
+					<h:outputText value="#{funcionario.nome}" />
+				</p:column>
+				<p:column sortBy="#{funcionario.cargo}" headerText="Cargo">
+					<h:outputText value="#{funcionario.cargo}" />
+				</p:column>
+				<p:column sortBy="#{funcionario.salario}" headerText="Salário">
+					<h:outputText value="#{funcionario.salario}" />
+				</p:column>
+				<p:column sortBy="#{funcionario.empresa}" headerText="Empresa">
+					<h:outputText value="#{funcionario.empresa.nome}" />
+				</p:column>
+				<p:column styleClass="dataTable_options">
+					<p:commandLink update=":frmEditar:pgEditar"
+						actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
+						oncomplete="dlgEditar.show();" title="Editar">
+						<p:graphicImage url="../resources/imagens/editar2.png" />
+					</p:commandLink>
+				</p:column>
+				<p:column styleClass="dataTable_options">
+					<p:commandLink update=":frmExcluir"
+						actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
+						ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
+						title="Excluir">
+						<p:graphicImage url="../resources/imagens/excluir2.png" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="Voltar"
+							action="login?faces-redirect=true"/>
+		</h:form>
 
-				<h:form id="frmEditar">
-					<p:dialog header="Editar Funcionario" widgetVar="dlgEditar"
-						resizable="false" id="dlgEditar" modal="true">
-						<p:growl id="growlEditar" sticky="false" />
-						<h:panelGrid id="pgEditar" columns="3" cellpadding="4"
-							style="margin:0 auto;">
-							<h:inputHidden value="#{funcionarioEditController.funcionario.id}"
-								id="hiddenid" />
-							<p:outputLabel value="Código:" />
-							<p:inputText id="codigo" label="Código"
-								value="#{funcionarioEditController.funcionario.codigo}" size="30"
-								readonly="true"
-								maxlength="30" required="true" requiredMessage="Obrigatório" />
-							<p:message for="codigo" display="text" />	
-								
-							<p:outputLabel value="Nome:" />
-							<p:inputText id="nome" label="Nome"
-								value="#{funcionarioEditController.funcionario.nome}" size="30"
-								maxlength="30" required="true" requiredMessage="Obrigatório" />
-							<p:message for="nome" display="text" />
+		<h:form id="frmEditar">
+			<p:dialog header="Editar Funcionario" widgetVar="dlgEditar"
+				resizable="false" id="dlgEditar" modal="true">
+				<p:growl id="growlEditar" sticky="false" />
+				<h:panelGrid id="pgEditar" columns="3" cellpadding="4"
+					style="margin:0 auto;">
+					<h:inputHidden value="#{funcionarioEditController.funcionario.id}"
+						id="hiddenid" />
+					<p:outputLabel value="Código:" />
+					<p:inputText id="codigo" label="Código"
+						value="#{funcionarioEditController.funcionario.codigo}" size="30"
+						readonly="true" maxlength="30" required="true"
+						requiredMessage="Obrigatório" />
+					<p:message for="codigo" display="text" />
 
-							<p:outputLabel value="Cargo:" />
-						<p:selectOneMenu id="cargo" label="Cargo"
-							value="#{funcionarioEditController.funcionario.cargo}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" >
-							<f:selectItem itemLabel="Selecione a cargo..." itemValue="" />
-							<f:selectItem itemLabel="Analista" itemValue="1" />
-							<f:selectItem itemLabel="Programador" itemValue="2" />
-							<f:selectItem itemLabel="Gerente" itemValue="3" />
-							<f:selectItem itemLabel="Diretor" itemValue="4" />
-						</p:selectOneMenu>
-						<p:message for="cargo" display="text" />
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nome" label="Nome"
+						value="#{funcionarioEditController.funcionario.nome}" size="30"
+						maxlength="30" required="true" requiredMessage="Obrigatório" />
+					<p:message for="nome" display="text" />
 
-						<p:outputLabel value="Salário:" />
-						<p:inputText id="salario" label="Salário"
-							value="#{funcionarioEditController.funcionario.salario}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="salario" display="text" />
-						
-						<p:outputLabel value="Valor Hora:" />
-						<p:inputText id="valorHora" label="Valor Hora"
-							value="#{funcionarioEditController.funcionario.valorHora}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="valorHora" display="text" />
-						
-						<p:outputLabel value="Comissão:" />
-						<p:inputText id="comissao" label="Comissão"
-							value="#{funcionarioEditController.funcionario.comissao}" size="30"
-							maxlength="30" required="true" requiredMessage="Obrigatório" />
-						<p:message for="comissao" display="text" />
+					<p:outputLabel value="Cargo:" />
+					<p:selectOneMenu id="cargo" label="Cargo"
+						value="#{funcionarioEditController.funcionario.cargo}" size="30"
+						maxlength="30" required="true" requiredMessage="Obrigatório">
+						<f:selectItem itemLabel="Selecione a cargo..." itemValue="" />
+						<f:selectItem itemLabel="Analista" itemValue="1" />
+						<f:selectItem itemLabel="Programador" itemValue="2" />
+						<f:selectItem itemLabel="Gerente" itemValue="3" />
+						<f:selectItem itemLabel="Diretor" itemValue="4" />
+					</p:selectOneMenu>
+					<p:message for="cargo" display="text" />
 
-<!-- 						<p:outputLabel value="Empresa:" />  -->
-<!-- 						<p:selectOneMenu id="empresa" label="Empresa" -->
-<!-- 							value="#{funcionarioEditController.funcionario.empresa}" -->
-<!-- 							required="true" requiredMessage="Obrigatório"> -->
-<!-- 							<f:selectItem itemLabel="Selecione a empresa..." itemValue="" /> -->
-<!-- 						</p:selectOneMenu> -->
-<!-- 						<p:message for="empresa" display="text" /> -->
-						</h:panelGrid>
-						<p:separator />
-						<h:panelGrid columns="2"
-							style="margin-left: 50px; margin-top: 20px; width: 90%">
-							<p:commandButton value="&nbsp;Atualizar"
-								update=":frmFuncionarios:dt_funcionario, growlEditar, dlgEditar"
-								actionListener="#{funcionarioEditController.atualizar()}"
-								ajax="true" oncomplete="dlgEditar.hide()" />
-							<p:commandButton value="&nbsp;Cancelar"
-								onclick="dlgEditar.hide()" />
-						</h:panelGrid>
-					</p:dialog>
-				</h:form>
+					<p:outputLabel value="Salário:" />
+					<p:inputText id="salario" label="Salário"
+						value="#{funcionarioEditController.funcionario.salario}" size="30"
+						maxlength="30" required="true" requiredMessage="Obrigatório" />
+					<p:message for="salario" display="text" />
 
-				<h:form id="frmExcluir">
-					<p:growl id="growlExcluir" sticky="true" />
-					<p:confirmDialog id="dlgExcluir"
-						message="Deseja excluir este funcionario?" header="Excluir Funcionário"
-						severity="alert" widgetVar="dlgExcluir">
-						<h:inputHidden value="#{funcionarioEditController.funcionario.id}"
-							id="hiddenid" />
-						<p:commandButton value="Excluir"
-							update=":frmFuncionarios:dt_funcionario, growlExcluir, dlgExcluir"
-							actionListener="#{funcionarioEditController.excluir()}"
-							oncomplete="dlgExcluir.hide()" />
-						<p:commandButton value="&nbsp;Cancelar"
-							update=":frmFuncionarios:dt_funcionario" oncomplete="dlgExcluir.hide()" />
+					<p:outputLabel value="Valor Hora:" />
+					<p:inputText id="valorHora" label="Valor Hora"
+						value="#{funcionarioEditController.funcionario.valorHora}"
+						size="30" maxlength="30" required="true"
+						requiredMessage="Obrigatório" />
+					<p:message for="valorHora" display="text" />
 
-					</p:confirmDialog>
+					<p:outputLabel value="Comissão:" />
+					<p:inputText id="comissao" label="Comissão"
+						value="#{funcionarioEditController.funcionario.comissao}"
+						size="30" maxlength="30" required="true"
+						requiredMessage="Obrigatório" />
+					<p:message for="comissao" display="text" />
 
-				</h:form>
-			</div>
+
+					<p:outputLabel value="Empresa:" />
+					<p:selectOneMenu id="empresa" label="Empresa"
+						value="funcionarioEditController.funcionario.empresa">
+						<f:selectItem itemLabel="Selecione a empresa..." itemValue="" />
+						<f:selectItems value="#{empresaConsultaController.lista}"
+							var="_empresa" itemLabel="#{_empresa.nome}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:separator />
+				<h:panelGrid columns="2"
+					style="margin-left: 50px; margin-top: 20px; width: 90%">
+					<p:commandButton value="&nbsp;Atualizar"
+						update=":frmFuncionarios:dt_funcionario, growlEditar, dlgEditar"
+						actionListener="#{funcionarioEditController.atualizar()}"
+						ajax="true" oncomplete="dlgEditar.hide()" />
+					<p:commandButton value="&nbsp;Cancelar" onclick="dlgEditar.hide()" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		<h:form id="frmExcluir">
+			<p:growl id="growlExcluir" sticky="true" />
+			<p:confirmDialog id="dlgExcluir"
+				message="Deseja excluir este funcionario?"
+				header="Excluir Funcionário" severity="alert" widgetVar="dlgExcluir">
+				<h:inputHidden value="#{funcionarioEditController.funcionario.id}"
+					id="hiddenid" />
+				<p:commandButton value="Excluir"
+					update=":frmFuncionarios:dt_funcionario, growlExcluir, dlgExcluir"
+					actionListener="#{funcionarioEditController.excluir()}"
+					oncomplete="dlgExcluir.hide()" />
+				<p:commandButton value="&nbsp;Cancelar"
+					update=":frmFuncionarios:dt_funcionario"
+					oncomplete="dlgExcluir.hide()" />
+
+			</p:confirmDialog>
+
+		</h:form>
+		</div>
 		</div>
 	</ui:define>
 </ui:composition>

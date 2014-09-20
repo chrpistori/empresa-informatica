@@ -78,7 +78,7 @@ public class EmpresaEditController {
 			return "/restrito/empresas?faces-redirect=true";
 		}
 	}
-
+	
 	// Getters & Setters
 
 	public Empresa getEmpresa() {

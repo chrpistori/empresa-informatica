@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		Folha de Pagamento - Gerar Folha de Pagamento
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="folhapagform">
+					<h:outputText value="Gerar Folha de Pagamento" styleClass="titulo" />
+					<br />
+					<br />
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Empresa:" />
+						<p:selectOneMenu id="empresa" label="Empresa"
+							value="empresaConsultaController.empresa">
+							<f:selectItem itemLabel="Selecione a empresa..." itemValue="" />
+							<f:selectItems value="#{empresaConsultaController.lista}" 
+								var="_empresa" itemLabel="#{_empresa.nome}"/>	
+								<p:ajax update="tabelaFolhaPagamento"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:dataTable id="tabelaFolhaPagamento" var="funcionario" resizableColumns="true"
+						emptyMessage="Não foram encontrados resultados."
+						value="#{empresaConsultaController.listaFuncionarios}" paginator="true" 
+						paginatorPosition="bottom" rows="10"
+						selection="#{funcionario}"
+						selectionMode="single" rowKey="#{funcionario.id}">
+						<f:facet name="header">
+							<h:outputText value="Folha de Pagamento da Empresa" />
+						</f:facet>
+						<p:column sortBy="#{funcionario.codigo}" headerText="Código">
+							<h:outputText value="#{funcionario.codigo}" />
+						</p:column>
+						<p:column sortBy="#{funcionario.nome}" headerText="Nome">
+							<h:outputText value="#{funcionario.nome}" />
+						</p:column>
+						<p:column sortBy="#{funcionario.cargo}" headerText="Cargo">
+							<h:outputText value="#{funcionario.cargo}" />
+						</p:column>
+						<p:column sortBy="#{funcionario.salario}" headerText="Salário">
+							<h:outputText value="#{funcionario.salario}" />
+						</p:column>
+						<p:column sortBy="#{funcionario.empresa}" headerText="Empresa">
+							<h:outputText value="#{funcionario.empresa.nome}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

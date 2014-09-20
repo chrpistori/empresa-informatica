@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+
+	<ui:define name="titulo">
+		Folha de Pagamento - Atribuir Empresa ao Funcionário
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<div id="three-columns">
+			<div class="content">
+				<h:form id="empresafuncform">
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
+					<h:outputText value="Empresa" styleClass="titulo" />
+					<br />
+					<br />
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome do funcionário:" />
+						<p:selectOneMenu id="nome_funcionario" label="Nome do funcionário"
+							value="funcionarioEditController.funcionario">
+							<f:selectItem itemLabel="Selecione o funcionário..." itemValue="" />
+							<f:selectItems value="#{funcionarioConsultaController.lista}" 
+								var="_funcionario" itemLabel="#{_funcionario.nome}"/>	
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Empresa:" />
+						<p:selectOneMenu id="empresa" label="Empresa"
+							value="funcionarioEditController.funcionario.empresa">
+							<f:selectItem itemLabel="Selecione o funcionário..." itemValue="" />
+							<f:selectItems value="#{empresaConsultaController.lista}" 
+								var="_empresa" itemLabel="#{_empresa.nome}"/>	
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton action="#{funcionarioEditController.atualizar}"
+						update="empresafuncform" value="Atualizar" />
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

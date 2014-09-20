@@ -11,12 +11,11 @@ import kgp.model.Funcionario;
 @ManagedBean(name = "funcionarioConsultaController")
 @RequestScoped
 public class FuncionarioConsultaController {
-
 	private Funcionario funcionario = new Funcionario();
-	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-	private List<Funcionario> lista;
 
-	// Getters & Setters
+	public List<Funcionario> getLista() {
+		return new FuncionarioDAO().listarFuncionariosAtivos();
+	}
 
 	public Funcionario getFuncionario() {
 		return funcionario;
@@ -25,13 +24,4 @@ public class FuncionarioConsultaController {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-
-	public List<Funcionario> getLista() {
-		if (this.lista == null) {
-			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-				this.lista = funcionarioDAO.listarFuncionariosAtivos();
-		}
-		return this.lista;
-	}
-
 }

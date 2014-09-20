@@ -24,7 +24,7 @@ public class FuncionarioDAO extends CrudDAO<Funcionario> {
 						"SELECT f FROM Funcionario f WHERE f.ativo = 1 ORDER BY f.nome");
 		return query.getResultList();
 	}
-
+	
 	public Funcionario obterPorId(Integer id) {
 		Query q = getEntityManager().createQuery(
 				"SELECT f FROM Funcionario f where f.id = :id");

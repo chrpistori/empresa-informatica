@@ -46,9 +46,6 @@
 				<p:column sortBy="#{funcionario.salario}" headerText="Salário">
 					<h:outputText value="#{funcionario.salario}" />
 				</p:column>
-				<p:column sortBy="#{funcionario.empresa}" headerText="Empresa">
-					<h:outputText value="#{funcionario.empresa.nome}" />
-				</p:column>
 				<p:column styleClass="dataTable_options">
 					<p:commandLink update=":frmEditar:pgEditar"
 						actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
@@ -121,20 +118,11 @@
 						size="30" maxlength="30" required="true"
 						requiredMessage="Obrigatório" />
 					<p:message for="comissao" display="text" />
-
-
-					<p:outputLabel value="Empresa:" />
-					<p:selectOneMenu id="empresa" label="Empresa"
-						value="funcionarioEditController.funcionario.empresa">
-						<f:selectItem itemLabel="Selecione a empresa..." itemValue="" />
-						<f:selectItems value="#{empresaConsultaController.lista}"
-							var="_empresa" itemLabel="#{_empresa.nome}" />
-					</p:selectOneMenu>
 				</h:panelGrid>
 				<p:separator />
 				<h:panelGrid columns="2"
 					style="margin-left: 50px; margin-top: 20px; width: 90%">
-					<p:commandButton value="&nbsp;Atualizar"
+					<p:commandButton value="Salvar"
 						update=":frmFuncionarios:dt_funcionario, growlEditar, dlgEditar"
 						actionListener="#{funcionarioEditController.atualizar()}"
 						ajax="true" oncomplete="dlgEditar.hide()" />

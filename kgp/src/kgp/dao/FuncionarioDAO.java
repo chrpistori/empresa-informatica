@@ -24,14 +24,23 @@ public class FuncionarioDAO extends CrudDAO<Funcionario> {
 						"SELECT f FROM Funcionario f WHERE f.ativo = 1 ORDER BY f.nome");
 		return query.getResultList();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Funcionario> listarFuncionariosEmpresa(Integer empresaId) {
+
+		return getEntityManager()
+				.createQuery(
+						"SELECT f FROM Funcionario f WHERE f.ativo = 1 AND f.empresa.id = :empresaId ORDER BY f.nome")
+				.setParameter("empresaId", empresaId).getResultList();
+	}
+
 	public Funcionario obterPorId(Integer id) {
 		Query q = getEntityManager().createQuery(
 				"SELECT f FROM Funcionario f where f.id = :id");
 		q.setParameter("id", id);
 		return (Funcionario) q.getSingleResult();
 	}
-	
+
 	public Funcionario obterPorCodigo(Integer codigo) {
 		Query q = getEntityManager().createQuery(
 				"SELECT f FROM Funcionario f where f.codigo = :id");

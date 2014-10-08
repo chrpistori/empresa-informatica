@@ -7,7 +7,6 @@ import javax.faces.bean.RequestScoped;
 
 import kgp.dao.EmpresaDAO;
 import kgp.model.Empresa;
-import kgp.model.Funcionario;
 
 @ManagedBean(name = "empresaConsultaController")
 @RequestScoped
@@ -16,10 +15,6 @@ public class EmpresaConsultaController {
 
 	public List<Empresa> getLista() {
 		return new EmpresaDAO().listarEmpresasAtivos();
-	}
-
-	public List<Funcionario> getListaFuncionarios() {
-		return empresa.getFuncionarios();
 	}
 
 	public Empresa getEmpresa() {

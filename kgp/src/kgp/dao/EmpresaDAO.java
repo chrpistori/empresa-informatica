@@ -42,4 +42,6 @@ public class EmpresaDAO extends CrudDAO<Empresa> {
 		q.setParameter("id", id);
 		return (Empresa) q.getSingleResult();
 	}
+	
+	
 }

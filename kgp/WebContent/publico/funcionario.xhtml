@@ -64,21 +64,14 @@
 					value="#{funcionarioEditController.funcionario.comissao}" size="30"
 					maxlength="30" required="true" requiredMessage="Obrigatório" />
 				<p:message for="comissao" display="text" />
-
-				<p:outputLabel value="Empresa:" />
-				<p:selectOneMenu id="empresa" label="Empresa"
-					value="funcionarioEditController.funcionario.empresa.id">
-					<f:selectItem itemLabel="Selecione a empresa..." itemValue="" />
-					<f:selectItems value="#{empresaConsultaController.lista}"
-						var="_empresa" itemLabel="#{_empresa.nome}" />
-				</p:selectOneMenu>
-
-			</h:panelGrid>
+			
 			<br />
 			<br />
-			<p:commandButton action="#{funcionarioEditController.salvar}"
-				update="funcionarioform" value="Salvar" />
-			<p:commandButton action="funcionarios?faces-redirect=true" value="Voltar"/>
+			<p:commandButton action="#{funcionarioEditController.salvar()}"
+				update="funcionarioform" value="Cadastrar" />
+				<p:commandButton value="Voltar"
+					action="funcionarios?faces-redirect=true"/>
+			</h:panelGrid>	
 		</h:form>
 		</div>
 		</div>

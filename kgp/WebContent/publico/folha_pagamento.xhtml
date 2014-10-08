@@ -23,18 +23,21 @@
 					<h:panelGrid columns="3">
 						<p:outputLabel value="Empresa:" />
 						<p:selectOneMenu id="empresa" label="Empresa"
-							value="empresaConsultaController.empresa">
+							value="#{empresaConsultaController.empresa.id}">
 							<f:selectItem itemLabel="Selecione a empresa..." itemValue="" />
 							<f:selectItems value="#{empresaConsultaController.lista}" 
-								var="_empresa" itemLabel="#{_empresa.nome}"/>	
-								<p:ajax update="tabelaFolhaPagamento"/>
+								var="_empresa" itemLabel="#{_empresa.nome}" itemValue="#{_empresa.id}"/>	
 						</p:selectOneMenu>
+						<p:commandButton value="Gerar folha" ajax="false"
+							action="#{funcionarioConsultaController.buscarFuncionarios(empresaConsultaController.empresa.id)}">
+							<p:ajax update="tabelaFolhaPagamento"/>
+						</p:commandButton>
 					</h:panelGrid>
 					<br />
 					<br />
 					<p:dataTable id="tabelaFolhaPagamento" var="funcionario" resizableColumns="true"
 						emptyMessage="Não foram encontrados resultados."
-						value="#{empresaConsultaController.listaFuncionarios}" paginator="true" 
+						value="#{funcionarioConsultaController.funcionariosEmpresa}" paginator="true" 
 						paginatorPosition="bottom" rows="10"
 						selection="#{funcionario}"
 						selectionMode="single" rowKey="#{funcionario.id}">
@@ -57,7 +60,7 @@
 							<h:outputText value="#{funcionario.empresa.nome}" />
 						</p:column>
 					</p:dataTable>
-					<p:commandButton value="Voltar"
+					<p:commandButton value="Voltar" ajax="true"
 							action="login?faces-redirect=true"/>
 				</h:form>
 			</div>

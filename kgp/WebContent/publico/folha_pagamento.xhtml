@@ -37,10 +37,8 @@
 					<br />
 					<p:dataTable id="tabelaFolhaPagamento" var="funcionario" resizableColumns="true"
 						emptyMessage="Não foram encontrados resultados."
-						value="#{funcionarioConsultaController.funcionariosEmpresa}" paginator="true" 
-						paginatorPosition="bottom" rows="10"
-						selection="#{funcionario}"
-						selectionMode="single" rowKey="#{funcionario.id}">
+						value="#{funcionarioConsultaController.funcionariosEmpresa}"
+						rowKey="#{funcionario.id}">
 						<f:facet name="header">
 							<h:outputText value="Folha de Pagamento da Empresa" />
 						</f:facet>
@@ -51,7 +49,7 @@
 							<h:outputText value="#{funcionario.nome}" />
 						</p:column>
 						<p:column sortBy="#{funcionario.cargo}" headerText="Cargo">
-							<h:outputText value="#{funcionario.cargo}" />
+							<h:outputText value="#{funcionario.tipoCargo.descricao}" />
 						</p:column>
 						<p:column sortBy="#{funcionario.salario}" headerText="Salário">
 							<h:outputText value="#{funcionario.salario}" />
@@ -60,6 +58,7 @@
 							<h:outputText value="#{funcionario.empresa.nome}" />
 						</p:column>
 					</p:dataTable>
+					<br />
 					<p:commandButton value="Voltar" ajax="true"
 							action="login?faces-redirect=true"/>
 				</h:form>

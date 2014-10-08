@@ -9,7 +9,7 @@
 <ui:composition template="/templates/principal.xhtml">
 
 	<ui:define name="titulo">
-		Folha de Pagamento - Contratar Analista
+		Folha de Pagamento - Contratar Funcionário
 	</ui:define>
 
 	<ui:define name="corpo">
@@ -17,33 +17,25 @@
 		<div id="three-columns">
 			<div class="content">
 				<h:form id="empresafuncform">
-<!-- 					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" /> -->
+					<p:growl id="messages" sticky="false" time="3000" globalOnly="true" />
 					<h:outputText value="Contratar Analista" styleClass="titulo" />
 					<br />
 					<br />
 					<h:panelGrid columns="2">
-						<p:outputLabel value="Nome do funcionário:" />
-						<p:selectOneMenu id="nome_funcionario" label="Nome do funcionário"
-							value="funcionarioEditController.funcionario">
-							<f:selectItem itemLabel="Selecione o funcionário..." itemValue="" />
-							<f:selectItems value="#{funcionarioConsultaController.lista}" 
-								var="_funcionario" itemLabel="#{_funcionario.nome}"/>	
-						</p:selectOneMenu>
+						<p:outputLabel value="Código do funcionário:" />
+						<p:inputText id="cod_funcionario" label="Código do funcionário"
+							value="#{funcionarioEditController.codigoFuncionario}"/>
 						
-						<p:outputLabel value="Empresa:" />
-						<p:selectOneMenu id="empresa" label="Empresa"
-							value="funcionarioEditController.funcionario.empresa">
-							<f:selectItem itemLabel="Selecione o funcionário..." itemValue="" />
-							<f:selectItems value="#{empresaConsultaController.lista}" 
-								var="_empresa" itemLabel="#{_empresa.nome}"/>	
-						</p:selectOneMenu>
+						<p:outputLabel value="Código da empresa:" />
+						<p:inputText id="empresa" label="Empresa"
+							value="#{funcionarioEditController.codigoEmpresa}"/>
 					</h:panelGrid>
 					<br />
 					<br />
-					<p:commandButton action="#{funcionarioEditController.atualizar}"
+					<p:commandButton action="#{funcionarioEditController.contratar(funcionarioEditController.codigoFuncionario, funcionarioEditController.codigoEmpresa)}"
 						update="empresafuncform" value="Contratar" />
 					<p:commandButton value="Voltar"
-							action="login?faces-redirect=true"/>
+						action="login?faces-redirect=true"/>
 				</h:form>
 			</div>
 		</div>

@@ -64,14 +64,16 @@
 					value="#{funcionarioEditController.funcionario.comissao}" size="30"
 					maxlength="30" required="true" requiredMessage="Obrigatório" />
 				<p:message for="comissao" display="text" />
-			
+			</h:panelGrid>	
 			<br />
 			<br />
 			<p:commandButton action="#{funcionarioEditController.salvar()}"
 				update="funcionarioform" value="Cadastrar" />
-				<p:commandButton value="Voltar"
-					action="funcionarios?faces-redirect=true"/>
-			</h:panelGrid>	
+		</h:form>
+		<br/>
+		<h:form>
+			<p:commandButton value="Voltar"
+				action="funcionarios?faces-redirect=true"/>
 		</h:form>
 		</div>
 		</div>

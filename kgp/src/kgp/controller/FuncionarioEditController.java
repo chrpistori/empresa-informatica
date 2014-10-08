@@ -5,7 +5,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import kgp.dao.EmpresaDAO;
 import kgp.dao.FuncionarioDAO;
+import kgp.model.Empresa;
 import kgp.model.Funcionario;
 
 @ManagedBean(name = "funcionarioEditController")
@@ -13,6 +15,8 @@ import kgp.model.Funcionario;
 public class FuncionarioEditController {
 
 	private Funcionario funcionario = new Funcionario();
+	private Integer codigoFuncionario;
+	private Integer codigoEmpresa;
 	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
 	public String salvar() {
@@ -78,6 +82,20 @@ public class FuncionarioEditController {
 			return "/publico/funcionarios?faces-redirect=true";
 		}
 	}
+	
+	public void contratar(Integer codigoFuncionario, Integer codigoEmpresa) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		Funcionario funcionario = funcionarioDAO.obterPorCodigo(codigoFuncionario);
+		Empresa empresa = new EmpresaDAO().obterPorId(codigoEmpresa);
+		funcionario.setEmpresa(empresa);
+		
+		funcionarioDAO.atualizar(funcionario);
+		
+		FacesMessage facesMessage = new FacesMessage(
+			"Funcionario " + funcionario.getNome() + " contratado pela empresa " + empresa.getNome() + ".");
+		context.addMessage(null, facesMessage);
+	}
 
 	// Getters & Setters
 
@@ -88,5 +106,23 @@ public class FuncionarioEditController {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	public Integer getCodigoFuncionario() {
+		return codigoFuncionario;
+	}
+
+	public void setCodigoFuncionario(Integer codigoFuncionario) {
+		this.codigoFuncionario = codigoFuncionario;
+	}
+
+	public Integer getCodigoEmpresa() {
+		return codigoEmpresa;
+	}
+
+	public void setCodigoEmpresa(Integer codigoEmpresa) {
+		this.codigoEmpresa = codigoEmpresa;
+	}
+	
+	
 
 }

@@ -39,6 +39,7 @@ public class Funcionario implements Serializable {
 	@Column(name="horas_trabalhadas")
 	private BigDecimal horasTrabalhadas;
 
+	@Column(name = "nome", unique = true, nullable = false)
 	private String nome;
 
 	private BigDecimal salario;

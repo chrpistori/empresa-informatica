@@ -36,7 +36,7 @@ public class FuncionarioDAO extends CrudDAO<Funcionario> {
 
 	public Funcionario obterPorId(Integer id) {
 		Query q = getEntityManager().createQuery(
-				"SELECT f FROM Funcionario f where f.id = :id");
+				"SELECT f FROM Funcionario f where f.codigo = :id");
 		q.setParameter("id", id);
 		return (Funcionario) q.getSingleResult();
 	}

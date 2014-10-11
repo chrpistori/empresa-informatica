@@ -75,12 +75,7 @@
 					style="margin:0 auto;">
 					<h:inputHidden value="#{funcionarioEditController.funcionario.codigo}"
 						id="hiddenid" />
-					<p:outputLabel value="Código:" />
-					<p:inputText id="codigo" label="Código"
-						value="#{funcionarioEditController.funcionario.codigo}" size="30"
-						maxlength="30" required="true"
-						requiredMessage="Obrigatório" />
-					<p:message for="codigo" display="text" />
+			
 
 					<p:outputLabel value="Nome:" />
 					<p:inputText id="nome" label="Nome"
@@ -113,12 +108,12 @@
 						requiredMessage="Obrigatório" />
 					<p:message for="valorHora" display="text" />
 
-					<p:outputLabel value="Comissão:" />
-					<p:inputText id="comissao" label="Comissão"
-						value="#{funcionarioEditController.funcionario.comissao}"
+					<p:outputLabel value="Horas Trabalhadas " />
+					<p:inputText id="horasTrabalhadas" label="Horas Trabalhadas"
+						value="#{funcionarioEditController.funcionario.horasTrabalhadas}"
 						size="30" maxlength="30" required="true"
 						requiredMessage="Obrigatório" />
-					<p:message for="comissao" display="text" />
+					<p:message for="horasTrabalhadas" display="text" />
 				</h:panelGrid>
 				<p:separator />
 				<h:panelGrid columns="2"

@@ -49,21 +49,24 @@
 				<p:outputLabel value="Salário:" />
 				<p:inputText id="salario" label="Salário"
 					value="#{funcionarioEditController.funcionario.salario}" size="30"
-					maxlength="30" required="true" requiredMessage="Obrigatório" />
+					maxlength="30" required="true" requiredMessage="Obrigatório" >
+					
+					</p:inputText>
 				<p:message for="salario" display="text" />
 
 				<p:outputLabel value="Valor Hora:" />
 				<p:inputText id="valorHora" label="Valor Hora"
 					value="#{funcionarioEditController.funcionario.valorHora}"
 					size="30" maxlength="30" required="true"
-					requiredMessage="Obrigatório" />
+					requiredMessage="Obrigatório"/>
+					
 				<p:message for="valorHora" display="text" />
 
-				<p:outputLabel value="Comissão:" />
-				<p:inputText id="comissao" label="Comissão"
-					value="#{funcionarioEditController.funcionario.comissao}" size="30"
+				<p:outputLabel value="Horas Trabalhadas" />
+				<p:inputText id="horas_trabalhadas" label="Horas Trabalhadas"
+					value="#{funcionarioEditController.funcionario.horasTrabalhadas}" size="30"
 					maxlength="30" required="true" requiredMessage="Obrigatório" />
-				<p:message for="comissao" display="text" />
+				<p:message for="horas_trabalhadas" display="text" />
 			</h:panelGrid>	
 			<br />
 			<br />

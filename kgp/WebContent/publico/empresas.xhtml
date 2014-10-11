@@ -26,18 +26,15 @@
 						style="margin-bottom: 20px;" />
 					<p:dataTable id="dt_empresa" var="empresa" resizableColumns="true"
 						emptyMessage="Não foram encontrados resultados."
-						value="#{empresaConsultaController.lista}" paginator="true" 
-						paginatorPosition="bottom" rows="10"
-						selection="#{empresaConsultaController.empresa}"
-						selectionMode="single" rowKey="#{empresa.id}">
+						value="#{empresaConsultaController.lista}"
+						rowKey="#{empresa.id}">
 						<f:facet name="header">
-							<h:outputText value="Empresas Cadastrados" />
+							<h:outputText value="Empresas Cadastradas" />
 						</f:facet>
-						<p:column sortBy="#{empresa.id}" headerText="Código">
+						<p:column headerText="ID">
 							<h:outputText value="#{empresa.id}" />
 						</p:column>
-						
-						<p:column sortBy="#{empresa.nome}" headerText="Nome">
+						<p:column headerText="Nome">
 							<h:outputText value="#{empresa.nome}" />
 						</p:column>
 						<p:column styleClass="dataTable_options">
@@ -56,6 +53,7 @@
 							</p:commandLink>
 						</p:column>
 					</p:dataTable>
+					<br/>
 					<p:commandButton value="Voltar"
 							action="login?faces-redirect=true"/>
 				</h:form>

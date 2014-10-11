@@ -36,6 +36,39 @@
 					<br />
 					<p:commandButton action="#{funcionarioEditController.contratar(funcionarioEditController.codigoFuncionario, funcionarioEditController.codigoEmpresa)}"
 						update="empresafuncform" value="Contratar" />
+						
+						<h:panelGrid columns="2">
+						<p:dataTable id="dt_empresa" var="empresa" resizableColumns="true"
+							emptyMessage="Não foram encontrados resultados."
+							value="#{empresaConsultaController.lista}" rowKey="#{empresa.id}">
+							<f:facet name="header">
+								<h:outputText value="Empresas Cadastradas" />
+							</f:facet>
+							<p:column headerText="ID">
+								<h:outputText value="#{empresa.id}" />
+							</p:column>
+							<p:column headerText="Nome">
+								<h:outputText value="#{empresa.nome}" />
+							</p:column>
+						</p:dataTable>
+
+						<p:dataTable id="dt_funcionario" var="funcionario"
+							resizableColumns="true"
+							emptyMessage="Não foram encontrados resultados."
+							value="#{funcionarioConsultaController.lista}"
+							rowKey="#{funcionario.id}">
+							<f:facet name="header">
+								<h:outputText value="Funcionarios Cadastrados" />
+							</f:facet>
+							<p:column headerText="Código">
+								<h:outputText value="#{funcionario.codigo}" />
+							</p:column>
+							<p:column headerText="Nome">
+								<h:outputText value="#{funcionario.nome}" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+					<br/>
 					<p:commandButton value="Voltar"
 						action="login?faces-redirect=true"/>
 				</h:form>

@@ -25,14 +25,13 @@ public class Funcionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
+	private int codigo;
 
 	private boolean ativo;
 
 	private int cargo;
-
-	private int codigo;
 
 	private BigDecimal comissao;
 
@@ -55,12 +54,12 @@ public class Funcionario implements Serializable {
 	public Funcionario() {
 	}
 
-	public int getId() {
-		return this.id;
+	public int getCodigo() {
+		return this.codigo;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public boolean getAtivo() {
@@ -81,14 +80,6 @@ public class Funcionario implements Serializable {
 
 	public void setCargo(int cargo) {
 		this.cargo = cargo;
-	}
-
-	public int getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
 	}
 
 	public BigDecimal getComissao() {
@@ -138,5 +129,4 @@ public class Funcionario implements Serializable {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-
 }

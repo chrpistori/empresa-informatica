@@ -21,14 +21,16 @@
 					<h:outputText value="Contratar Analista" styleClass="titulo" />
 					<br />
 					<br />
-					<h:panelGrid columns="2">
+					<h:panelGrid columns="3">
 						<p:outputLabel value="Código do funcionário:" />
 						<p:inputText id="cod_funcionario" label="Código do funcionário"
-							value="#{funcionarioEditController.codigoFuncionario}"/>
+							value="#{funcionarioEditController.codigoFuncionario}" required="true" requiredMessage="Campo Obrigatório" />
+							<p:message for="cod_funcionario" display="text" />
 						
 						<p:outputLabel value="Código da empresa:" />
 						<p:inputText id="empresa" label="Empresa"
-							value="#{funcionarioEditController.codigoEmpresa}"/>
+							value="#{funcionarioEditController.codigoEmpresa}" required="true" requiredMessage="Campo Obrigatório" />
+							<p:message for="empresa" display="text" />
 					</h:panelGrid>
 					<br />
 					<br />

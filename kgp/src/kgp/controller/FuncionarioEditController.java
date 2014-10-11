@@ -1,9 +1,12 @@
 package kgp.controller;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 
 import kgp.dao.EmpresaDAO;
 import kgp.dao.FuncionarioDAO;
@@ -12,7 +15,12 @@ import kgp.model.Funcionario;
 
 @ManagedBean(name = "funcionarioEditController")
 @ViewScoped
-public class FuncionarioEditController {
+public class FuncionarioEditController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3083402389486863723L;
 
 	private Funcionario funcionario = new Funcionario();
 	private Integer codigoFuncionario;
@@ -82,10 +90,11 @@ public class FuncionarioEditController {
 			return "/publico/funcionarios?faces-redirect=true";
 		}
 	}
-	
+
 	public void contratar(Integer codigoFuncionario, Integer codigoEmpresa) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
+		try {
 		Funcionario funcionario = funcionarioDAO.obterPorCodigo(codigoFuncionario);
 		Empresa empresa = new EmpresaDAO().obterPorId(codigoEmpresa);
 		funcionario.setEmpresa(empresa);
@@ -95,6 +104,13 @@ public class FuncionarioEditController {
 		FacesMessage facesMessage = new FacesMessage(
 			"Funcionario " + funcionario.getNome() + " contratado pela empresa " + empresa.getNome() + ".");
 		context.addMessage(null, facesMessage);
+		} catch(NoResultException nre) {
+			nre.printStackTrace();
+			context.addMessage(null, new FacesMessage("ID não foi encontrado!"));
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			context.addMessage(null, new FacesMessage("Erro ao fazer contratação!"));
+		}
 	}
 
 	// Getters & Setters
@@ -122,7 +138,5 @@ public class FuncionarioEditController {
 	public void setCodigoEmpresa(Integer codigoEmpresa) {
 		this.codigoEmpresa = codigoEmpresa;
 	}
-	
-	
 
 }

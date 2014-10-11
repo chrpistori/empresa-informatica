@@ -33,6 +33,10 @@
 						<f:facet name="header">
 							<h:outputText value="Empresas Cadastrados" />
 						</f:facet>
+						<p:column sortBy="#{empresa.id}" headerText="Código">
+							<h:outputText value="#{empresa.id}" />
+						</p:column>
+						
 						<p:column sortBy="#{empresa.nome}" headerText="Nome">
 							<h:outputText value="#{empresa.nome}" />
 						</p:column>

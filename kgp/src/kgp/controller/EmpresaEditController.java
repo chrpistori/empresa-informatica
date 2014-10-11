@@ -1,5 +1,7 @@
 package kgp.controller;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -10,8 +12,12 @@ import kgp.model.Empresa;
 
 @ManagedBean(name = "empresaEditController")
 @ViewScoped
-public class EmpresaEditController {
+public class EmpresaEditController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7707251744617329798L;
 	private Empresa empresa = new Empresa();
 	EmpresaDAO empresaDAO = new EmpresaDAO();
 
@@ -27,13 +33,13 @@ public class EmpresaEditController {
 			context.addMessage(null, facesMessage);
 			return "/publico/empresas?faces-redirect=true";
 
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage facesMessage = new FacesMessage(
 					"Falha ao salvar o empresa.");
 			context.addMessage(null, facesMessage);
 			return "/publico/empresas	?faces-redirect=true";
-		}
+		} 
 	}
 
 	public void preparar(Integer id) {
@@ -78,7 +84,7 @@ public class EmpresaEditController {
 			return "/publico/empresas?faces-redirect=true";
 		}
 	}
-	
+
 	// Getters & Setters
 
 	public Empresa getEmpresa() {

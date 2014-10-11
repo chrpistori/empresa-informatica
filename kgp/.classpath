@@ -45,6 +45,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/eclipselink.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.persistence.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api-5.0.16.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-3.5.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/EclipseLink 2.4.1 - Juno">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
@@ -57,6 +58,5 @@
 			<attribute name="owner.project.facets" value="jst.jsf"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Paulo-Noot/Workspace/kgp/WebContent/WEB-INF/lib/primefaces-3.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -1,5 +1,6 @@
 package kgp.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,12 @@ import kgp.model.Funcionario;
 
 @ManagedBean(name = "funcionarioConsultaController")
 @RequestScoped
-public class FuncionarioConsultaController {
+public class FuncionarioConsultaController implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5147607811331389046L;
 	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionariosEmpresa = new ArrayList<Funcionario>();
 

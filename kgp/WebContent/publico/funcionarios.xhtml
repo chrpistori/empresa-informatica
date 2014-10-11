@@ -24,13 +24,14 @@
 			<p:commandButton value="Novo Funcionario"
 				action="funcionario?faces-redirect=true"
 				style="margin-bottom: 20px;" />
+				
 			<p:dataTable id="dt_funcionario" var="funcionario"
 				resizableColumns="true"
 				emptyMessage="Não foram encontrados resultados."
 				value="#{funcionarioConsultaController.lista}" paginator="true"
 				paginatorPosition="bottom" rows="10"
 				selection="#{funcionarioConsultaController.funcionario}"
-				selectionMode="single" rowKey="#{funcionario.id}">
+				selectionMode="single" rowKey="#{funcionario.codigo}">
 				<f:facet name="header">
 					<h:outputText value="Funcionarios Cadastrados" />
 				</f:facet>
@@ -48,14 +49,14 @@
 				</p:column>
 				<p:column styleClass="dataTable_options">
 					<p:commandLink update=":frmEditar:pgEditar"
-						actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
+						actionListener="#{funcionarioEditController.preparar(funcionario.codigo)}"
 						oncomplete="dlgEditar.show();" title="Editar">
 						<p:graphicImage url="../resources/imagens/editar2.png" />
 					</p:commandLink>
 				</p:column>
 				<p:column styleClass="dataTable_options">
 					<p:commandLink update=":frmExcluir"
-						actionListener="#{funcionarioEditController.preparar(funcionario.id)}"
+						actionListener="#{funcionarioEditController.preparar(funcionario.codigo)}"
 						ajax="true" immediate="false" oncomplete="dlgExcluir.show();"
 						title="Excluir">
 						<p:graphicImage url="../resources/imagens/excluir2.png" />
@@ -72,7 +73,7 @@
 				<p:growl id="growlEditar" sticky="false" />
 				<h:panelGrid id="pgEditar" columns="3" cellpadding="4"
 					style="margin:0 auto;">
-					<h:inputHidden value="#{funcionarioEditController.funcionario.id}"
+					<h:inputHidden value="#{funcionarioEditController.funcionario.codigo}"
 						id="hiddenid" />
 					<p:outputLabel value="Código:" />
 					<p:inputText id="codigo" label="Código"
@@ -136,7 +137,7 @@
 			<p:confirmDialog id="dlgExcluir"
 				message="Deseja excluir este funcionario?"
 				header="Excluir Funcionário" severity="alert" widgetVar="dlgExcluir">
-				<h:inputHidden value="#{funcionarioEditController.funcionario.id}"
+				<h:inputHidden value="#{funcionarioEditController.funcionario.codigo}"
 					id="hiddenid" />
 				<p:commandButton value="Excluir"
 					update=":frmFuncionarios:dt_funcionario, growlExcluir, dlgExcluir"
